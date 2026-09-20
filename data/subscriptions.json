@@ -5,5 +5,12 @@
       "p256dh": "BEp8n-QlHciVbpi5pT2oHQKB5GYOLYnFFNRivGzat0Xgmc3XEEwNMQqWq77GhZe2zcRUOijgC9PUx1jdiMwNxHQ",
       "auth": "jPAsz5tP-yANounjB0S_pg"
     }
+  },
+  {
+    "endpoint": "https://web.push.apple.com/QCwuID9Ds-dLObxemuBiv9nyqpfYuMEcF_C6_JpdjBd8woAKrfW5jJn9r7mXLI31aTHJlVbjeFwyIJ9h4Vw6JCyhJMH2aUT7xwHAe_cY31Zzc0uFMChqhRc2LJn47N43kgIlgzAv5ZMU-MeCXczRUQruMYPCDpRF_wvO7kvHl-s",
+    "keys": {
+      "p256dh": "BF7FHOk9mhibnNtllf-tSowE7SzTzQJwW1LA1h0mV5KL_Cj-MF7YgXDpDseIIWZ4gOn2zDgQbJIlW_3V3knlLSY",
+      "auth": "swIxB8r-gOgP3PYwjmjZZQ"
+    }
   }
 ]
