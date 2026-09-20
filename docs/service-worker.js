@@ -1,5 +1,5 @@
-const CACHE_NAME = "befirst-app-v2";
-const CORE_ASSETS = ["./", "./css/style.css", "./js/app.js", "./manifest.json"];
+const CACHE_NAME = "befirst-app-v3";
+const CORE_ASSETS = ["./", "./css/style.css", "./js/app.js", "./manifest.json", "./images/hero.webp"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
