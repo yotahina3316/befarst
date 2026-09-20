@@ -62,10 +62,19 @@ body {
   font-size: 13px;
 }
 
+.subscription-box {
+  margin: 0 16px 16px;
+}
+
+.subscription-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 6px;
+}
+
 .subscription-output {
   display: block;
-  width: calc(100% - 32px);
-  margin: 0 16px 16px;
+  width: 100%;
   height: 140px;
   background: var(--surface);
   color: var(--text);
@@ -74,6 +83,16 @@ body {
   padding: 10px;
   font-family: monospace;
   font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.subscription-close-btn {
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--text-muted);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
 }
 
 .tabs {

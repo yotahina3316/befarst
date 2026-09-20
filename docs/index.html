@@ -23,7 +23,11 @@
     <img src="./images/hero.webp" alt="BE:FIRST" loading="eager" />
   </div>
 
-  <textarea id="subscription-output" class="subscription-output" readonly hidden></textarea>
+  <div id="subscription-box" class="subscription-box" hidden>
+    <p class="subscription-hint">この内容をコピーして送ってください。送信後は「閉じる」で消せます。</p>
+    <textarea id="subscription-output" class="subscription-output" readonly></textarea>
+    <button id="subscription-close-btn" class="subscription-close-btn" type="button">閉じる</button>
+  </div>
 
   <nav class="tabs">
     <button class="tab-btn active" data-tab="schedule">SCHEDULE</button>

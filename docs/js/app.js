@@ -87,7 +87,13 @@ function urlBase64ToUint8Array(base64String) {
 // 代わりに購読内容を画面に表示し、利用者が一度だけdata/subscriptions.jsonへ手動登録する運用とする。
 async function setupPushNotifications() {
   const btn = document.getElementById("notify-btn");
+  const box = document.getElementById("subscription-box");
   const output = document.getElementById("subscription-output");
+  const closeBtn = document.getElementById("subscription-close-btn");
+  closeBtn.addEventListener("click", () => {
+    box.hidden = true;
+  });
+
   if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
     return; // このブラウザ/iOSバージョンはWeb Push未対応
   }
@@ -110,7 +116,7 @@ async function setupPushNotifications() {
     });
 
     output.value = JSON.stringify(subscription.toJSON(), null, 2);
-    output.hidden = false;
+    box.hidden = false;
     btn.hidden = true;
   });
 }

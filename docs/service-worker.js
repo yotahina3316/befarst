@@ -1,4 +1,4 @@
-const CACHE_NAME = "befirst-app-v3";
+const CACHE_NAME = "befirst-app-v4";
 const CORE_ASSETS = ["./", "./css/style.css", "./js/app.js", "./manifest.json", "./images/hero.webp"];
 
 self.addEventListener("install", (event) => {
