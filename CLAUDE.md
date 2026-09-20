@@ -118,34 +118,38 @@ venv\Scripts\vapid.exe --gen --applicationServerKey
 ## GitHub リポジトリのセットアップ(進行中)
 
 - GitHubユーザー名: `yotahina3316`(2026-09-20作成)
-- ローカルgitリポジトリは初期化済み(`git init`実施済み、2026-09-20)
-- **未実施**: GitHubリモートリポジトリの作成・push、Secretsの登録、Pages設定の有効化
+- リポジトリ: **`https://github.com/yotahina3316/befarst`(Public、作成・push完了、2026-09-20)**
+- GitHub Pages公開URL: **`https://yotahina3316.github.io/befarst/`(稼働確認済み)**
+- ローカルには`gh` CLI(GitHub CLI)をインストール・`yotahina3316`で認証済み(`gh auth login`、scope: repo, workflow, gist, read:org)。以後のGitHub操作は`gh`コマンド経由で可能。
 
-### 必要な設定手順(リポジトリ作成後)
+### 完了済みの設定
 
-1. GitHub上で新規リポジトリを作成(**Public**にする。無料でPagesを使うには公開リポジトリである必要がある)
-2. ローカルから `git remote add origin https://github.com/yotahina3316/<リポジトリ名>.git` → `git push -u origin master`(または`main`にリネームしてから)
-3. リポジトリの Settings → Secrets and variables → Actions → New repository secret で以下を登録:
-   - `ANTHROPIC_API_KEY`(ローカルの`backend/.env`と同じ値)
-   - `VAPID_PRIVATE_KEY_PEM`(`backend/keys/vapid_private_key.pem`の中身をそのまま貼り付け)
-   - `VAPID_CLAIM_EMAIL`(例: `mailto:xxxxx@example.com`)
-4. リポジトリの Settings → Actions → General → Workflow permissions で「Read and write permissions」を有効化(`collect.yml`がdata更新をpushできるようにするため必須)
-5. リポジトリの Settings → Pages → Source: 「Deploy from a branch」→ Branch: `main`(または`master`) / Folder: `/docs` を選択
-6. `.github/workflows/collect.yml` の Actions タブから手動実行(workflow_dispatch)して動作確認
-7. 数分後、`https://yotahina3316.github.io/<リポジトリ名>/` でアプリが表示されることを確認
-8. iPhoneのSafariでそのURLを開き「ホーム画面に追加」してインストール
+1. ✅ リポジトリ作成・初回push完了(`gh repo create befarst --public --source=. --remote=origin --push`)
+   - 初回pushは`.github/workflows/collect.yml`を含むため`workflow`スコープが無く失敗 → `gh auth refresh -h github.com -s workflow`でスコープ追加後に再push成功、という経緯があった
+2. ✅ Secrets登録完了(`gh secret set`で設定): `ANTHROPIC_API_KEY`、`VAPID_PRIVATE_KEY_PEM`(`.pem`ファイルの中身)、`VAPID_CLAIM_EMAIL`(`mailto:yotahina3316@gmail.com`、GitHub登録メールを使用)
+3. ✅ Actions Workflow permissions を「Read and write」に設定済み(`gh api`経由)
+4. ✅ GitHub Pages有効化済み(`gh api`経由、Branch: `master` / Folder: `/docs`)
+5. ✅ `collect.yml`を手動実行(`gh workflow run`)して動作確認済み。実際に新規1件のニュースを検出・追加し、自動コミット→Pages再デプロイまで正常に完了(2026-09-20 12:52 UTC)。既存27件のスケジュールは重複除去により再登録されず、dedupロジックが正しく機能していることも確認できた。
+6. ✅ サイトが実際に稼働していることを確認(`https://yotahina3316.github.io/befarst/`が200、`data/news.json`も正しく配信されている)
 
-カスタムドメイン(`befirst.maryue.info`、旧VPS用にDNS設定済み)を使いたい場合は、Settings → Pages → Custom domainで設定し、DNSのAレコードをGitHub PagesのIPに向け直す必要がある(現状は旧VPSのIPを向いたままなので要変更)。必須ではなく、`github.io`のURLでもPWAとして問題なく動作する。
+### 残っている作業
+
+- [ ] iPhoneのSafariで `https://yotahina3316.github.io/befarst/` を開き「ホーム画面に追加」してインストール確認
+- [ ] Web Push通知の購読登録(アプリで「通知を有効にする」→表示された購読情報を`data/subscriptions.json`にコピー&コミット)
+- [ ] GitHub Actions環境でのYouTube RSS収集の動作確認(ローカルでは成功、Actions上のログでも要確認)
+- [ ] アプリアイコンの差し替え(現状はPillowで生成した仮アイコン)
+- [ ] Phase 2以降の機能(MEMBER別ページ、SOCIAL、GOODS等)
+- [ ] (任意)カスタムドメイン`befirst.maryue.info`を使いたい場合は、Settings → Pages → Custom domainで設定し、DNSのAレコードをGitHub PagesのIPに向け直す(現状は旧VPSのIPを向いたまま)。必須ではなく`github.io`のURLでも問題なく動作する。
+- [ ] (任意)Xserver VPSクラウドの解約(使わないと決めたため。Xserver VPS管理パネルの「解約申請」から)
 
 ## 現状の実装状況
 
 - [x] 収集・AI処理スクリプト(`backend/collect.py`)の実装、DB不要のJSON方式に移行済み
 - [x] PWAフロント一式(`docs/`、SCHEDULE/NEWSタブ、Service Worker、手動Push購読フロー)
 - [x] 公式サイトの実データ取得ロジック(WP REST API)
-- [x] **ローカル環境でのE2E動作確認済み(2026-09-20、新アーキテクチャで再確認)**: `python collect.py`を実行し、公式サイト+YouTubeから実データを収集→AI分類(拡張思考対応、日付の年補完含む)→`docs/data/news.json`(11件)・`docs/data/schedule.json`(27件、過去3日〜未来分)に正しく保存されることを確認済み。
-- [x] Anthropic APIキー・VAPIDキーの生成・ローカル設定済み
-- [ ] **GitHubリポジトリの作成・push・Secrets登録・Pages有効化** ← 次の作業
-- [ ] GitHub Actions上でのYouTube RSS収集の動作確認(ローカルでは動作確認済みだが、Actions環境固有の到達性は未確認)
+- [x] ローカル環境でのE2E動作確認済み(2026-09-20)
+- [x] Anthropic APIキー・VAPIDキーの生成・設定済み(ローカル`.env`+GitHub Actions Secrets両方)
+- [x] **GitHubリポジトリの作成・push・Secrets登録・Pages有効化・動作確認 すべて完了(2026-09-20)**
 - [ ] Web Push通知の実機(iPhone)での動作確認(`data/subscriptions.json`への手動登録がまだ)
 - [ ] アプリアイコンの差し替え(現状はPillowで生成した仮アイコン)
 - [ ] Phase 2以降の機能(MEMBER別ページ、SOCIAL、GOODS等)
