@@ -1,0 +1,45 @@
+name: Collect BE:FIRST info
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Write VAPID private key
+        run: |
+          mkdir -p backend/keys
+          printf '%s' "$VAPID_PRIVATE_KEY_PEM" > backend/keys/vapid_private_key.pem
+        env:
+          VAPID_PRIVATE_KEY_PEM: ${{ secrets.VAPID_PRIVATE_KEY_PEM }}
+
+      - name: Run collection
+        working-directory: backend
+        run: python collect.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          VAPID_PRIVATE_KEY: keys/vapid_private_key.pem
+          VAPID_CLAIM_EMAIL: ${{ secrets.VAPID_CLAIM_EMAIL }}
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/news.json docs/data/schedule.json
+          git diff --staged --quiet || git commit -m "chore: update collected data"
+          git push

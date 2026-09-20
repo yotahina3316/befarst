@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BE:FIRST Info</title>
+
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0b0b0f" />
+
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>BE:FIRST Info</h1>
+    <button id="notify-btn" class="notify-btn" hidden>通知を有効にする</button>
+  </header>
+
+  <textarea id="subscription-output" class="subscription-output" readonly hidden></textarea>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="schedule">SCHEDULE</button>
+    <button class="tab-btn" data-tab="news">NEWS</button>
+  </nav>
+
+  <main>
+    <section id="tab-schedule" class="tab-panel active">
+      <div id="schedule-list" class="item-list">
+        <p class="loading">読み込み中...</p>
+      </div>
+    </section>
+
+    <section id="tab-news" class="tab-panel">
+      <div id="news-list" class="item-list">
+        <p class="loading">読み込み中...</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>

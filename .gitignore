@@ -1,0 +1,7 @@
+# backend/.gitignore にも個別のルールあり(venv, .env, keys/等)
+backend/venv/
+backend/__pycache__/
+backend/befarst/__pycache__/
+backend/befarst/collectors/__pycache__/
+*.pyc
+.claude/
