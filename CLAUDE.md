@@ -132,27 +132,32 @@ venv\Scripts\vapid.exe --gen --applicationServerKey
 5. ✅ `collect.yml`を手動実行(`gh workflow run`)して動作確認済み。実際に新規1件のニュースを検出・追加し、自動コミット→Pages再デプロイまで正常に完了(2026-09-20 12:52 UTC)。既存27件のスケジュールは重複除去により再登録されず、dedupロジックが正しく機能していることも確認できた。
 6. ✅ サイトが実際に稼働していることを確認(`https://yotahina3316.github.io/befarst/`が200、`data/news.json`も正しく配信されている)
 
-### 残っている作業
+7. ✅ トップページにヒーロー画像を追加(公式サイトの最新ビジュアル`Campaign_1-scaled.webp`を`docs/images/hero.webp`として保存、2026-09-20)
+8. ✅ iPhoneへのインストール確認済み(ホーム画面に追加、Safari共有メニューから)
+9. ✅ **Web Push通知が実機で動作確認済み(2026-09-20)**: `data/subscriptions.json`に購読情報を登録し、`notify_all()`でテスト通知を送信 → iPhoneに実際に通知が届くことを確認済み。
 
-- [ ] iPhoneのSafariで `https://yotahina3316.github.io/befarst/` を開き「ホーム画面に追加」してインストール確認
-- [ ] Web Push通知の購読登録(アプリで「通知を有効にする」→表示された購読情報を`data/subscriptions.json`にコピー&コミット)
-- [ ] GitHub Actions環境でのYouTube RSS収集の動作確認(ローカルでは成功、Actions上のログでも要確認)
-- [ ] アプリアイコンの差し替え(現状はPillowで生成した仮アイコン)
+### 残っている作業(任意・低優先度)
+
+- [ ] GitHub Actions環境でのYouTube RSS収集の動作確認(ローカルでは成功、Actions上のログでも要確認。次回の定期実行ログで確認可能)
+- [ ] アプリアイコンの差し替え(現状はPillowで生成した仮アイコン。「BE」の文字のみのプレースホルダー)
 - [ ] Phase 2以降の機能(MEMBER別ページ、SOCIAL、GOODS等)
 - [ ] (任意)カスタムドメイン`befirst.maryue.info`を使いたい場合は、Settings → Pages → Custom domainで設定し、DNSのAレコードをGitHub PagesのIPに向け直す(現状は旧VPSのIPを向いたまま)。必須ではなく`github.io`のURLでも問題なく動作する。
 - [ ] (任意)Xserver VPSクラウドの解約(使わないと決めたため。Xserver VPS管理パネルの「解約申請」から)
 
 ## 現状の実装状況
 
-- [x] 収集・AI処理スクリプト(`backend/collect.py`)の実装、DB不要のJSON方式に移行済み
-- [x] PWAフロント一式(`docs/`、SCHEDULE/NEWSタブ、Service Worker、手動Push購読フロー)
-- [x] 公式サイトの実データ取得ロジック(WP REST API)
-- [x] ローカル環境でのE2E動作確認済み(2026-09-20)
-- [x] Anthropic APIキー・VAPIDキーの生成・設定済み(ローカル`.env`+GitHub Actions Secrets両方)
-- [x] **GitHubリポジトリの作成・push・Secrets登録・Pages有効化・動作確認 すべて完了(2026-09-20)**
-- [ ] Web Push通知の実機(iPhone)での動作確認(`data/subscriptions.json`への手動登録がまだ)
-- [ ] アプリアイコンの差し替え(現状はPillowで生成した仮アイコン)
-- [ ] Phase 2以降の機能(MEMBER別ページ、SOCIAL、GOODS等)
+**Phase 1(SCHEDULE + NEWS)は完成し、本番相当の環境で全機能の動作確認が完了している。**
+
+- [x] 収集・AI処理スクリプト(`backend/collect.py`)の実装、DB不要のJSON方式
+- [x] PWAフロント一式(`docs/`、SCHEDULE/NEWSタブ、ヒーロー画像、Service Worker、手動Push購読フロー)
+- [x] 公式サイトの実データ取得ロジック(WP REST API)+ YouTube RSS
+- [x] Anthropic APIキー・VAPIDキーの生成・設定(ローカル`.env`+GitHub Actions Secrets)
+- [x] GitHubリポジトリの作成・push・Secrets登録・Pages有効化・動作確認(2026-09-20)
+- [x] GitHub Actionsでの自動収集(30分おき)が実際に新着を検出・反映することを確認済み
+- [x] iPhoneへのインストール(ホーム画面に追加)確認済み
+- [x] **Web Push通知が実機で動作確認済み(2026-09-20)**
+- [ ] アプリアイコンの差し替え(任意、現状はプレースホルダー)
+- [ ] Phase 2以降の機能(MEMBER別ページ、SOCIAL、GOODS等、未着手)
 - [x] ~~Xserver VPSへのデプロイ~~ → 方針転換によりこのプロジェクトでは使用しないことに決定(VPS契約自体は残っている)
 
 ## 過去の経緯(参考・アーカイブ)
