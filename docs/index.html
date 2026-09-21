@@ -32,6 +32,7 @@
   <nav class="tabs">
     <button class="tab-btn active" data-tab="schedule">SCHEDULE</button>
     <button class="tab-btn" data-tab="news">NEWS</button>
+    <button class="tab-btn" data-tab="member">MEMBER</button>
   </nav>
 
   <main>
@@ -67,6 +68,20 @@
 
     <section id="tab-news" class="tab-panel">
       <div id="news-list" class="item-list">
+        <p class="loading">読み込み中...</p>
+      </div>
+    </section>
+
+    <section id="tab-member" class="tab-panel">
+      <div id="member-chips" class="member-chips"></div>
+
+      <h2 class="member-section-title">予定</h2>
+      <div id="member-schedule-list" class="item-list">
+        <p class="loading">読み込み中...</p>
+      </div>
+
+      <h2 class="member-section-title">ニュース</h2>
+      <div id="member-news-list" class="item-list">
         <p class="loading">読み込み中...</p>
       </div>
     </section>

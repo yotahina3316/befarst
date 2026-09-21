@@ -10,7 +10,9 @@
     "url": "https://www.youtube.com/watch?v=1yhYalgwUss",
     "published_at": "2026-09-15T00:00:09",
     "event_date": "2026-09-18T13:00:00",
-    "schedule_category": "DIGITAL"
+    "schedule_category": "DIGITAL",
+    "image_url": "https://i.ytimg.com/vi/1yhYalgwUss/hqdefault.jpg",
+    "members": []
   },
   {
     "source": "youtube",
@@ -23,7 +25,9 @@
     "url": "https://www.youtube.com/watch?v=Jf3I1qfwOgM",
     "published_at": "2026-09-08T00:00:10",
     "event_date": "2026-09-18T13:00:00",
-    "schedule_category": "DIGITAL"
+    "schedule_category": "DIGITAL",
+    "image_url": "https://i.ytimg.com/vi/Jf3I1qfwOgM/hqdefault.jpg",
+    "members": []
   },
   {
     "source": "youtube",
@@ -36,7 +40,9 @@
     "url": "https://www.youtube.com/watch?v=sZKlt8uFIkY",
     "published_at": "2026-09-02T00:00:17",
     "event_date": "2026-09-18T13:00:00",
-    "schedule_category": "DIGITAL"
+    "schedule_category": "DIGITAL",
+    "image_url": "https://i.ytimg.com/vi/sZKlt8uFIkY/hqdefault.jpg",
+    "members": []
   },
   {
     "source": "official_news",
@@ -49,7 +55,9 @@
     "url": "https://befirst.tokyo/live/global2026-showcase/",
     "published_at": "2026-05-17T09:30:49",
     "event_date": "2026-09-25",
-    "schedule_category": "LIVE"
+    "schedule_category": "LIVE",
+    "image_url": null,
+    "members": []
   },
   {
     "source": "official_news",
@@ -62,7 +70,9 @@
     "url": "https://befirst.tokyo/dvd-blu-ray/260730-stadium/",
     "published_at": "2026-08-20T08:59:25",
     "event_date": "2026-09-30",
-    "schedule_category": "RELEASE"
+    "schedule_category": "RELEASE",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/07/D37414E6-A8F1-46F8-A6E4-24BC3FE09E30.webp",
+    "members": []
   },
   {
     "source": "youtube",
@@ -75,7 +85,9 @@
     "url": "https://www.youtube.com/watch?v=9EfkMH9X9fA",
     "published_at": "2026-09-16T10:00:00",
     "event_date": "2026-09-30",
-    "schedule_category": "RELEASE"
+    "schedule_category": "RELEASE",
+    "image_url": "https://i.ytimg.com/vi/9EfkMH9X9fA/hqdefault.jpg",
+    "members": []
   },
   {
     "source": "official_news",
@@ -88,7 +100,9 @@
     "url": "https://befirst.tokyo/music/0902-be4u/",
     "published_at": "2026-09-02T07:59:16",
     "event_date": "2026-11-03",
-    "schedule_category": "RELEASE"
+    "schedule_category": "RELEASE",
+    "image_url": null,
+    "members": []
   },
   {
     "source": "official_news",
@@ -101,7 +115,9 @@
     "url": "https://befirst.tokyo/music/befrist_be4u/",
     "published_at": "2026-08-16T12:00:04",
     "event_date": "2026-11-03",
-    "schedule_category": "RELEASE"
+    "schedule_category": "RELEASE",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/08/260804_BF_B4U_ArtistPhoto_trim_Large-scaled.webp",
+    "members": []
   },
   {
     "source": "anniversary",
@@ -114,7 +130,16 @@
     "summary_ja": "BE:FIRST デビュー記念日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T11:26:10.691454",
-    "event_date": "2026-11-03"
+    "event_date": "2026-11-03",
+    "image_url": null,
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ]
   },
   {
     "source": "birthday",
@@ -127,7 +152,11 @@
     "summary_ja": "RYUHEIの誕生日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
-    "event_date": "2026-11-07"
+    "event_date": "2026-11-07",
+    "image_url": "./images/members/ryuhei.webp",
+    "members": [
+      "RYUHEI"
+    ]
   },
   {
     "source": "official_news",
@@ -140,7 +169,9 @@
     "url": "https://befirst.tokyo/live/dometour2027/",
     "published_at": "2026-05-17T11:30:09",
     "event_date": "2027-01-11",
-    "schedule_category": "LIVE"
+    "schedule_category": "LIVE",
+    "image_url": null,
+    "members": []
   },
   {
     "source": "birthday",
@@ -153,7 +184,11 @@
     "summary_ja": "SOTAの誕生日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
-    "event_date": "2027-01-18"
+    "event_date": "2027-01-18",
+    "image_url": "./images/members/sota.webp",
+    "members": [
+      "SOTA"
+    ]
   },
   {
     "source": "official_news",
@@ -166,7 +201,9 @@
     "url": "https://befirst.tokyo/news/0227-news/",
     "published_at": "2026-02-27T03:59:41",
     "event_date": "2027-03-03T13:00:00",
-    "schedule_category": "GOODS"
+    "schedule_category": "GOODS",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/02/BF_MTV_260224_YOKO.png",
+    "members": []
   },
   {
     "source": "birthday",
@@ -179,7 +216,11 @@
     "summary_ja": "MANATOの誕生日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
-    "event_date": "2027-04-29"
+    "event_date": "2027-04-29",
+    "image_url": "./images/members/manato.webp",
+    "members": [
+      "MANATO"
+    ]
   },
   {
     "source": "birthday",
@@ -192,7 +233,11 @@
     "summary_ja": "JUNONの誕生日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
-    "event_date": "2027-05-23"
+    "event_date": "2027-05-23",
+    "image_url": "./images/members/junon.webp",
+    "members": [
+      "JUNON"
+    ]
   },
   {
     "source": "birthday",
@@ -205,7 +250,11 @@
     "summary_ja": "SHUNTOの誕生日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
-    "event_date": "2027-09-01"
+    "event_date": "2027-09-01",
+    "image_url": "./images/members/shunto.webp",
+    "members": [
+      "SHUNTO"
+    ]
   },
   {
     "source": "birthday",
@@ -218,6 +267,10 @@
     "summary_ja": "LEOの誕生日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
-    "event_date": "2027-09-08"
+    "event_date": "2027-09-08",
+    "image_url": "./images/members/leo.webp",
+    "members": [
+      "LEO"
+    ]
   }
 ]

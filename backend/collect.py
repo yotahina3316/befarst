@@ -11,6 +11,7 @@ from pathlib import Path
 
 from befarst.ai import classify_and_summarize
 from befarst.collectors import official_news, youtube
+from befarst.members import detect_members
 from befarst.notifications import notify_all
 from befarst.recurring_events import upcoming_recurring_events
 
@@ -87,6 +88,8 @@ def main() -> None:
             "title_original": candidate["title"],
             "title_ja": ai_result["title_ja"],
             "summary_ja": ai_result["summary_ja"],
+            "image_url": candidate.get("image_url"),
+            "members": detect_members(candidate["title"], candidate["content"]),
             "url": candidate["url"],
             "published_at": candidate["published_at"].isoformat(),
         }

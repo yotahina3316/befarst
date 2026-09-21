@@ -24,36 +24,59 @@ function formatDate(iso) {
   });
 }
 
+// ---------- カード共通レイアウト(サムネイル画像対応) ----------
+
+function itemCardHTML(item, metaHtml) {
+  const title = item.title_ja || item.title_original;
+  const thumb = item.image_url
+    ? `<div class="item-thumb"><img src="${item.image_url}" alt="" loading="lazy" /></div>`
+    : "";
+  return `
+    <a class="item-card" href="${item.url}" target="_blank" rel="noopener">
+      ${thumb}
+      <div class="item-body">
+        <div class="meta">${metaHtml}</div>
+        <div class="item-title">${title}</div>
+        ${item.summary_ja ? `<div class="item-summary">${item.summary_ja}</div>` : ""}
+      </div>
+    </a>
+  `;
+}
+
+function newsMetaHTML(item) {
+  return `
+    <span class="badge ${item.confidence}">${item.confidence}</span>
+    <span class="item-date">${formatDate(item.published_at)}</span>
+    ${item.source_category ? `<span class="item-date">${item.source_category}</span>` : ""}
+  `;
+}
+
+function scheduleMetaHTML(item) {
+  const time = item.event_date && item.event_date.length > 10 ? item.event_date.slice(11, 16) : null;
+  const catLabel = CATEGORY_LABELS[item.schedule_category] || item.schedule_category || "";
+  return `
+    <span class="badge cat-${item.schedule_category}">${catLabel}</span>
+    ${time ? `<span class="item-date">${time}〜</span>` : ""}
+  `;
+}
+
 function renderNewsItems(container, items) {
   if (!items.length) {
     container.innerHTML = '<p class="empty">まだ情報がありません</p>';
     return;
   }
-
-  container.innerHTML = items
-    .map((item) => {
-      const title = item.title_ja || item.title_original;
-      return `
-        <a class="item-card" href="${item.url}" target="_blank" rel="noopener">
-          <div class="meta">
-            <span class="badge ${item.confidence}">${item.confidence}</span>
-            <span class="item-date">${formatDate(item.published_at)}</span>
-            ${item.source_category ? `<span class="item-date">${item.source_category}</span>` : ""}
-          </div>
-          <div class="item-title">${title}</div>
-          ${item.summary_ja ? `<div class="item-summary">${item.summary_ja}</div>` : ""}
-        </a>
-      `;
-    })
-    .join("");
+  container.innerHTML = items.map((item) => itemCardHTML(item, newsMetaHTML(item))).join("");
 }
+
+let allNewsItems = [];
 
 async function loadNews() {
   const container = document.getElementById("news-list");
   try {
     const res = await fetch("./data/news.json", { cache: "no-store" });
-    const items = await res.json();
-    renderNewsItems(container, items);
+    allNewsItems = await res.json();
+    renderNewsItems(container, allNewsItems);
+    renderMemberTab();
   } catch (e) {
     container.innerHTML = '<p class="empty">読み込みに失敗しました</p>';
   }
@@ -152,23 +175,7 @@ function renderDayDetail(key) {
     return;
   }
 
-  container.innerHTML = events
-    .map((item) => {
-      const time = item.event_date && item.event_date.length > 10 ? item.event_date.slice(11, 16) : null;
-      const title = item.title_ja || item.title_original;
-      const catLabel = CATEGORY_LABELS[item.schedule_category] || item.schedule_category || "";
-      return `
-        <a class="item-card" href="${item.url}" target="_blank" rel="noopener">
-          <div class="meta">
-            <span class="badge cat-${item.schedule_category}">${catLabel}</span>
-            ${time ? `<span class="item-date">${time}〜</span>` : ""}
-          </div>
-          <div class="item-title">${title}</div>
-          ${item.summary_ja ? `<div class="item-summary">${item.summary_ja}</div>` : ""}
-        </a>
-      `;
-    })
-    .join("");
+  container.innerHTML = events.map((item) => itemCardHTML(item, scheduleMetaHTML(item))).join("");
 }
 
 function selectDay(key) {
@@ -191,16 +198,71 @@ function setupCalendarNav() {
   document.getElementById("cal-next").addEventListener("click", () => changeMonth(1));
 }
 
+let allScheduleItems = [];
+
 async function loadSchedule() {
   try {
     const res = await fetch("./data/schedule.json", { cache: "no-store" });
-    const items = await res.json();
-    calendarState.eventsByDay = groupEventsByDay(items);
+    allScheduleItems = await res.json();
+    calendarState.eventsByDay = groupEventsByDay(allScheduleItems);
     renderCalendarGrid();
     renderDayDetail(calendarState.selectedDay);
+    renderMemberTab();
   } catch (e) {
     document.getElementById("calendar-day-events").innerHTML = '<p class="empty">読み込みに失敗しました</p>';
   }
+}
+
+// ---------- MEMBER ----------
+
+const MEMBER_LIST = ["SOTA", "MANATO", "JUNON", "SHUNTO", "LEO", "RYUHEI"];
+let selectedMember = MEMBER_LIST[0];
+
+function setupMemberChips() {
+  const container = document.getElementById("member-chips");
+  container.innerHTML = MEMBER_LIST.map(
+    (name) => `
+      <button type="button" class="member-chip" data-member="${name}">
+        <img class="member-chip-avatar" src="./images/members/${name.toLowerCase()}.webp" alt="" />
+        <span>${name}</span>
+      </button>
+    `
+  ).join("");
+  container.querySelectorAll(".member-chip").forEach((btn) => {
+    btn.addEventListener("click", () => selectMember(btn.dataset.member));
+  });
+  selectMember(selectedMember);
+}
+
+function selectMember(name) {
+  selectedMember = name;
+  document.querySelectorAll(".member-chip").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.member === name);
+  });
+  renderMemberTab();
+}
+
+function renderMemberTab() {
+  const scheduleContainer = document.getElementById("member-schedule-list");
+  const newsContainer = document.getElementById("member-news-list");
+  if (!scheduleContainer || !newsContainer) return;
+
+  const today = todayKey();
+  const memberSchedule = allScheduleItems
+    .filter(
+      (item) => (item.members || []).includes(selectedMember) && (item.event_date || "").slice(0, 10) >= today
+    )
+    .sort((a, b) => (a.event_date || "").localeCompare(b.event_date || ""));
+
+  const memberNews = allNewsItems.filter((item) => (item.members || []).includes(selectedMember));
+
+  scheduleContainer.innerHTML = memberSchedule.length
+    ? memberSchedule.map((item) => itemCardHTML(item, scheduleMetaHTML(item))).join("")
+    : '<p class="empty">直近の予定はありません</p>';
+
+  newsContainer.innerHTML = memberNews.length
+    ? memberNews.map((item) => itemCardHTML(item, newsMetaHTML(item))).join("")
+    : '<p class="empty">関連ニュースはありません</p>';
 }
 
 // ---------- タブ切り替え ----------
@@ -268,6 +330,7 @@ async function setupPushNotifications() {
 
 setupTabs();
 setupCalendarNav();
+setupMemberChips();
 loadSchedule();
 loadNews();
 setupPushNotifications();

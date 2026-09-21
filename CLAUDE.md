@@ -12,8 +12,16 @@ BE:FIRST関連の情報を集約・分類・翻訳・要約して届ける、**�
 
 ## フェーズ構成
 
-- **Phase 1(現在実装中)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
-- Phase 2以降(未着手、企画書に記載のみ): HOME、MEMBER別ページ、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応
+- **Phase 1(完成)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
+- **Phase 2(着手済み、2026-09-21〜)**: `MEMBER`別ページを実装済み(下記参照)。残りのHOME、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応は未着手(企画書に記載のみ)。
+
+### MEMBERページ + サムネイル画像表示(2026-09-21実装、ユーザー指示「サイト内が寂しいので写真を増やしたい」)
+
+- **MEMBERタブ**: SCHEDULE/NEWSに続く3つ目のタブ。6人のメンバー(SOTA/MANATO/JUNON/SHUNTO/LEO/RYUHEI)の丸型アバター写真をチップとして横並び表示し、選択したメンバーに関連する「予定」「ニュース」を絞り込んで一覧表示する(`docs/js/app.js`の`setupMemberChips`/`renderMemberTab`、`docs/index.html`の`#tab-member`)。
+- **メンバー判定ロジック**: `backend/befarst/members.py`の`detect_members()`が、記事タイトル・本文中のメンバー名(英字表記+カタカナ表記のゆれ)をキーワードマッチで検出し、各news/scheduleアイテムに`members`配列を付与する。AI(Claude API)は使わず決定的なキーワード判定のみ(コスト・レイテンシ増を避けるため)。`backend/collect.py`が収集時にタイトル+本文全体に対して実行、誕生日イベント(`recurring_events.py`)は該当メンバー名を直接付与、記念日イベントは全メンバーに付与する。
+- **メンバー写真の入手元**: 公式サイトの`https://befirst.tokyo/profile/`ページに、WordPress REST APIの`content`には出てこない(ページビルダー的なテンプレートで直接HTMLに埋め込まれている)メンバー個別写真があることを確認し、`alt`属性のメンバー名と紐付けて特定・ダウンロード済み。`docs/images/members/{sota,manato,junon,shunto,leo,ryuhei}.webp`として保存し、MEMBERタブのアバター・誕生日イベントのサムネイルに使用している。
+- **記事サムネイル画像(`image_url`)**: 公式サイトのWordPress投稿は「アイキャッチ画像」(`featured_media`)を使っておらず常に`0`のため、代わりに本文HTML中の最初の`<img src="...">`を抽出して使用する方式に決定(`backend/befarst/collectors/official_news.py`の`_first_image_url()`)。YouTubeはRSSフィードの`media:thumbnail`(無ければ`https://i.ytimg.com/vi/{video_id}/hqdefault.jpg`で決定的に生成)を使用する(`backend/befarst/collectors/youtube.py`)。この`image_url`をnews/scheduleの全item-cardで表示し(`docs/js/app.js`の`itemCardHTML()`、`docs/css/style.css`の`.item-thumb`)、サイト全体の視覚的な密度を上げている。
+- **既存データへの反映**: 上記フィールド追加はcollect.py実行時にのみ効くため、既存の`docs/data/news.json`・`schedule.json`(実装当時28件・17件)には一度だけ後付けのバックフィルを実施済み(公式記事は投稿IDから本文を再取得して画像抽出、YouTubeはURLを決定的に生成、誕生日/記念日はメンバー名から直接付与)。今後の新規収集分はcollect.py本体のロジックで自動的にフィールドが付与される。
 
 ### SCHEDULEに載せる情報の基準(2026-09-21確定・拡張、ユーザー指示)
 

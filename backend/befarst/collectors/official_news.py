@@ -25,12 +25,23 @@ CATEGORY_MAP = {
 }
 
 _TAG_RE = re.compile(r"<[^>]+>")
+_IMG_SRC_RE = re.compile(r'<img[^>]+src="([^"]+)"')
 
 
 def _strip_html(raw_html: str) -> str:
     text = _TAG_RE.sub(" ", raw_html or "")
     text = html.unescape(text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _first_image_url(raw_html: str) -> str | None:
+    """本文HTML中の最初の<img src>を記事のサムネイルとして使う。
+
+    公式サイトはWordPressの「アイキャッチ画像」機能を使っておらず(featured_media
+    は常に0)、画像は本文中に直接埋め込まれているため、この方式で抽出する。
+    """
+    match = _IMG_SRC_RE.search(raw_html or "")
+    return html.unescape(match.group(1)) if match else None
 
 
 def _category_label(category_ids: list[int]) -> str:
@@ -83,6 +94,7 @@ def fetch_new_posts(existing_source_ids: set[str], max_pages: int = 5) -> list[d
                         "source_category": _category_label(post.get("categories", [])),
                         "title": _strip_html(post["title"]["rendered"]),
                         "content": _strip_html(post["content"]["rendered"]),
+                        "image_url": _first_image_url(post["content"]["rendered"]),
                         "url": post["link"],
                         # date_gmtはUTCだがオフセット表記を含まないnaive文字列のため、そのままnaive UTCとして扱う
                         "published_at": datetime.fromisoformat(post["date_gmt"]),

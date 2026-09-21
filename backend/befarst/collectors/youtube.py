@@ -39,6 +39,9 @@ def fetch_new_videos(existing_source_ids: set[str]) -> list[dict]:
         published = entry.get("published_parsed")  # UTCのtime.struct_time(feedparser仕様)
         published_at = datetime(*published[:6]) if published else datetime.utcnow()
 
+        thumbnails = entry.get("media_thumbnail") or []
+        image_url = thumbnails[0]["url"] if thumbnails else f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
+
         new_videos.append(
             {
                 "source": "youtube",
@@ -46,6 +49,7 @@ def fetch_new_videos(existing_source_ids: set[str]) -> list[dict]:
                 "source_category": "VIDEO",
                 "title": entry.get("title", ""),
                 "content": entry.get("summary", ""),
+                "image_url": image_url,
                 "url": entry.get("link", ""),
                 "published_at": published_at,
             }

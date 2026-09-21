@@ -7,6 +7,8 @@
 
 from datetime import date, datetime, timezone
 
+from befarst.members import MEMBER_NAMES
+
 # (表示名, 月, 日) — 2026年9月時点の現メンバー6名(RYOKIは2025年脱退のため含めない)
 MEMBERS: list[tuple[str, int, int]] = [
     ("SOTA", 1, 18),
@@ -30,7 +32,14 @@ def _next_occurrence(month: int, day: int, today: date) -> date:
     return occurrence
 
 
-def _build_item(source_prefix: str, title: str, occurrence: date, schedule_category: str) -> dict:
+def _build_item(
+    source_prefix: str,
+    title: str,
+    occurrence: date,
+    schedule_category: str,
+    members: list[str],
+    image_url: str | None,
+) -> dict:
     return {
         "source": source_prefix,
         "source_id": f"{title}-{occurrence.year}",
@@ -40,6 +49,8 @@ def _build_item(source_prefix: str, title: str, occurrence: date, schedule_categ
         "title_original": title,
         "title_ja": title,
         "summary_ja": f"{title}です。",
+        "image_url": image_url,
+        "members": members,
         "url": "https://befirst.tokyo/",
         "published_at": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
         "event_date": occurrence.isoformat(),
@@ -53,13 +64,15 @@ def upcoming_recurring_events(existing_source_ids: set[str]) -> list[dict]:
 
     for name, month, day in MEMBERS:
         occurrence = _next_occurrence(month, day, today)
-        item = _build_item("birthday", f"{name} 誕生日", occurrence, "BIRTHDAY")
+        image_url = f"./images/members/{name.lower()}.webp"
+        item = _build_item("birthday", f"{name} 誕生日", occurrence, "BIRTHDAY", [name], image_url)
         if item["source_id"] not in existing_source_ids:
             items.append(item)
 
     for title, month, day in ANNIVERSARIES:
         occurrence = _next_occurrence(month, day, today)
-        item = _build_item("anniversary", title, occurrence, "ANNIVERSARY")
+        # グループ全体の記念日なので、全メンバーのページに表示されるようタグ付けする
+        item = _build_item("anniversary", title, occurrence, "ANNIVERSARY", list(MEMBER_NAMES), None)
         if item["source_id"] not in existing_source_ids:
             items.append(item)
 
