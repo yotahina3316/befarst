@@ -15,6 +15,20 @@ BE:FIRST関連の情報を集約・分類・翻訳・要約して届ける、**�
 - **Phase 1(現在実装中)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
 - Phase 2以降(未着手、企画書に記載のみ): HOME、MEMBER別ページ、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応
 
+### SCHEDULEに載せる情報の基準(2026-09-21確定、ユーザー指示)
+
+SCHEDULEタブに表示するのは以下の4種類**のみ**。それ以外(TV/ラジオ/雑誌出演、配信限定リリース、キャンペーン告知等)は全て`NEWS`扱いにする。
+
+1. DVD/Blu-rayの発売日
+2. チケットの先行/一般販売日
+3. グッズの発売日
+4. ライブ・コンサート・ファンミーティング等の開催日
+5. メンバーの誕生日(`backend/befarst/birthdays.py`で固定データとして管理。公式サイトのニュースとは別枠で毎回自動生成される)
+
+`backend/befarst/ai.py`の`SCHEDULE_CATEGORIES = {"LIVE", "GOODS", "RELEASE"}`がこの分類ロジック本体。`schedule_category`という値を各アイテムに持たせ、フロント側のカレンダーで色分け表示に使う。
+
+**SCHEDULE UIはカレンダー形式**(2026-09-21実装): リスト表示ではなく、月間カレンダーグリッドに日付ごとのイベントをドット表示し、日付をタップするとその日の予定が下部に一覧表示される形式。`docs/js/app.js`の`calendarState`まわりが該当ロジック。
+
 ## アーキテクチャ(2026-09-20 GitHub Actions + Pages構成に移行)
 
 ### 移行の経緯
