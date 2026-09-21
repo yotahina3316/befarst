@@ -11,6 +11,10 @@
   --cat-goods: #f2c14e;
   --cat-release: #5ca9ff;
   --cat-birthday: #7ee787;
+  --cat-stream: #8a7fff;
+  --cat-digital: #4dd0c8;
+  --cat-deadline: #ff8c42;
+  --cat-anniversary: #c792ea;
 }
 
 * {
@@ -173,6 +177,10 @@ body {
 .badge.cat-GOODS { background: var(--cat-goods); color: #2a2200; }
 .badge.cat-RELEASE { background: var(--cat-release); color: white; }
 .badge.cat-BIRTHDAY { background: var(--cat-birthday); color: #063014; }
+.badge.cat-STREAM { background: var(--cat-stream); color: white; }
+.badge.cat-DIGITAL { background: var(--cat-digital); color: #023230; }
+.badge.cat-DEADLINE { background: var(--cat-deadline); color: white; }
+.badge.cat-ANNIVERSARY { background: var(--cat-anniversary); color: #2a0a3a; }
 
 .item-date {
   color: var(--text-muted);
@@ -280,6 +288,10 @@ body {
 .dot-GOODS { background: var(--cat-goods); }
 .dot-RELEASE { background: var(--cat-release); }
 .dot-BIRTHDAY { background: var(--cat-birthday); }
+.dot-STREAM { background: var(--cat-stream); }
+.dot-DIGITAL { background: var(--cat-digital); }
+.dot-DEADLINE { background: var(--cat-deadline); }
+.dot-ANNIVERSARY { background: var(--cat-anniversary); }
 
 .calendar-legend {
   display: flex;

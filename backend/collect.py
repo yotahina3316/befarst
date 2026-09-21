@@ -10,9 +10,9 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from befarst.ai import classify_and_summarize
-from befarst.birthdays import upcoming_birthdays
 from befarst.collectors import official_news, youtube
 from befarst.notifications import notify_all
+from befarst.recurring_events import upcoming_recurring_events
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("collect")
@@ -43,6 +43,17 @@ def existing_ids(*item_lists: list[dict], source: str) -> set[str]:
     return ids
 
 
+def _parse_date(raw: str | None) -> str | None:
+    if not raw:
+        return None
+    try:
+        cleaned = raw.rstrip("Z")
+        datetime.fromisoformat(cleaned)  # 妥当性チェック
+        return cleaned
+    except (ValueError, AttributeError):
+        return None
+
+
 def main() -> None:
     news_items = load_json(NEWS_PATH)
     schedule_items = load_json(SCHEDULE_PATH)
@@ -65,14 +76,8 @@ def main() -> None:
             content=candidate["content"],
         )
 
-        event_date = None
-        if ai_result.get("event_date"):
-            try:
-                raw = ai_result["event_date"].rstrip("Z")
-                datetime.fromisoformat(raw)  # 妥当性チェック
-                event_date = raw
-            except (ValueError, AttributeError):
-                event_date = None
+        event_date = _parse_date(ai_result.get("event_date"))
+        deadline_date = _parse_date(ai_result.get("deadline_date"))
 
         item = {
             "source": candidate["source"],
@@ -91,13 +96,25 @@ def main() -> None:
             item["schedule_category"] = ai_result["schedule_category"]
             schedule_items.append(item)
             new_schedule_for_notify.append(item)
+
+            if deadline_date:
+                deadline_item = dict(item)
+                deadline_item["source_id"] = f"{candidate['source_id']}-deadline"
+                deadline_item["schedule_category"] = "DEADLINE"
+                deadline_item["event_date"] = deadline_date
+                deadline_item["title_ja"] = f"{item['title_ja']}(申込締切)"
+                schedule_items.append(deadline_item)
+                new_schedule_for_notify.append(deadline_item)
         else:
             news_items.append(item)
             new_news_count += 1
 
-    # メンバー誕生日(公式サイトのニュースとは別枠で、直近の誕生日を毎回補充する)
-    birthday_items = upcoming_birthdays(existing_ids(schedule_items, source="birthday"))
-    for item in birthday_items:
+    # メンバー誕生日・グループ記念日(公式サイトのニュースとは別枠で、直近の日付を毎回補充する)
+    recurring_existing = existing_ids(schedule_items, source="birthday") | existing_ids(
+        schedule_items, source="anniversary"
+    )
+    recurring_items = upcoming_recurring_events(recurring_existing)
+    for item in recurring_items:
         schedule_items.append(item)
         new_schedule_for_notify.append(item)
 
@@ -112,10 +129,10 @@ def main() -> None:
     save_json(SCHEDULE_PATH, schedule_items)
 
     logger.info(
-        "収集完了: 新規news=%s件, 新規schedule=%s件(誕生日%s件含む, 保存件数 news=%s, schedule=%s)",
+        "収集完了: 新規news=%s件, 新規schedule=%s件(誕生日/記念日%s件含む, 保存件数 news=%s, schedule=%s)",
         new_news_count,
         len(new_schedule_for_notify),
-        len(birthday_items),
+        len(recurring_items),
         len(news_items),
         len(schedule_items),
     )

@@ -2,7 +2,16 @@
 const VAPID_PUBLIC_KEY =
   "BAvDkNGVDoA1iLGfn8SC6rSGcx_A4VygbgxS07MQV09qHJxCJJ9nUHJAS4uZiue2XY8SlwqP_cXkZCIp10eEMCY";
 
-const CATEGORY_LABELS = { LIVE: "ライブ", GOODS: "グッズ", RELEASE: "DVD/Blu-ray", BIRTHDAY: "誕生日" };
+const CATEGORY_LABELS = {
+  LIVE: "ライブ",
+  GOODS: "グッズ",
+  RELEASE: "DVD/Blu-ray",
+  STREAM: "配信/生配信",
+  DIGITAL: "配信リリース",
+  DEADLINE: "申込締切",
+  BIRTHDAY: "誕生日",
+  ANNIVERSARY: "記念日",
+};
 
 function formatDate(iso) {
   if (!iso) return "";
