@@ -94,6 +94,8 @@ befarst/
 6. GitHub Actionsが変更を`git commit && git push`し、GitHub Pagesが自動的に再デプロイされる
 7. フロント(`docs/js/app.js`)は`./data/schedule.json`・`./data/news.json`を直接fetchして表示するのみ(APIサーバーへのリクエストは一切ない)
 
+**重要: `docs/service-worker.js`の`CACHE_NAME`のバージョンを必ず上げること**。`index.html`・`js/app.js`・`css/style.css`など静的ファイルは「キャッシュ優先」で配信される(`service-worker.js`の`fetch`ハンドラ参照)。`service-worker.js`自体のバイト列が変わらないとブラウザは新しいService Workerとして扱わず、GitHub Pages側は更新されていてもインストール済みのPWA(ホーム画面のアプリ)は古いキャッシュを返し続けてしまう(2026-09-21、MEMBERタブ追加時に実際にこれで「タブが増えていない」という不具合が発生した)。フロントの見た目・動作に関わるファイルを変更した際は、忘れずに`CACHE_NAME`の数字をインクリメントしてコミットに含めること。反映後もユーザー側でアプリを一度完全に閉じて再度開く(必要なら再読み込みを2回程度)操作が必要になる場合がある。
+
 ### Web Push通知の仕組み(サーバーレス化に伴う変更点)
 
 バックエンドサーバーが無いため、ブラウザが動的に購読登録APIへPOSTする仕組みが使えない。個人・単一ユーザー利用という前提のもと、以下の**手動・一度だけの運用**にしている。
