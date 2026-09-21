@@ -34,6 +34,17 @@
   },
   {
     "source": "youtube",
+    "source_id": "uzsSnLLHx5M",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / WATCH ME feat. BIA -Music Video-",
+    "title_ja": "BE:FIRST / WATCH ME feat. BIA -Music Video-",
+    "summary_ja": "",
+    "url": "https://www.youtube.com/watch?v=uzsSnLLHx5M",
+    "published_at": "2026-09-18T04:00:10"
+  },
+  {
+    "source": "youtube",
     "source_id": "w7Tsk7z_mhE",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
@@ -64,6 +75,17 @@
     "summary_ja": "BE:FIRSTが2年連続でファミリーマート クリスマスキャンペーンのアンバサダーに決定し、「抹茶」と「紅茶」の2種類のコラボケーキを発売。この動画では、メンバーがケーキのネーミングを考案する過程や、和気あいあいとした裏側の様子が公開されている。予約者にはオリジナルキャラクター「Boom Boom Brothers」の限定クロスも付属する。",
     "url": "https://www.youtube.com/watch?v=Mo90tm9PDPY",
     "published_at": "2026-09-14T10:00:06"
+  },
+  {
+    "source": "youtube",
+    "source_id": "gCXi7FuubYE",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / WATCH ME -Global EP Digest-",
+    "title_ja": "BE:FIRST / WATCH ME -Global EP Digest-",
+    "summary_ja": "",
+    "url": "https://www.youtube.com/watch?v=gCXi7FuubYE",
+    "published_at": "2026-09-12T00:00:18"
   },
   {
     "source": "youtube",
