@@ -36,8 +36,28 @@
 
   <main>
     <section id="tab-schedule" class="tab-panel active">
-      <div id="schedule-list" class="item-list">
-        <p class="loading">読み込み中...</p>
+      <div class="calendar-header">
+        <button id="cal-prev" class="cal-nav-btn" type="button" aria-label="前の月">‹</button>
+        <div id="cal-month-label" class="cal-month-label"></div>
+        <button id="cal-next" class="cal-nav-btn" type="button" aria-label="次の月">›</button>
+      </div>
+
+      <div class="calendar-weekdays">
+        <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+      </div>
+
+      <div id="calendar-grid" class="calendar-grid"></div>
+
+      <div class="calendar-legend">
+        <span class="legend-item"><i class="dot dot-LIVE"></i>ライブ</span>
+        <span class="legend-item"><i class="dot dot-GOODS"></i>グッズ</span>
+        <span class="legend-item"><i class="dot dot-RELEASE"></i>DVD/Blu-ray</span>
+        <span class="legend-item"><i class="dot dot-BIRTHDAY"></i>誕生日</span>
+      </div>
+
+      <div class="calendar-day-detail">
+        <h2 id="calendar-day-title" class="calendar-day-title"></h2>
+        <div id="calendar-day-events" class="item-list"></div>
       </div>
     </section>
 
