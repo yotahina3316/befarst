@@ -10,6 +10,8 @@ logger = logging.getLogger(__name__)
 
 _client = None
 
+SCHEDULE_CATEGORIES = {"LIVE", "GOODS", "RELEASE"}
+
 
 def _get_client() -> anthropic.Anthropic:
     global _client
@@ -31,16 +33,21 @@ PROMPT_TEMPLATE = """あなたはBE:FIRSTのファン向け情報整理アシス
 本文(抜粋): {content}
 
 # タスク
-1. item_type: この記事が「特定の開催日時がある予定・イベント情報」(ライブ、TV/ラジオ出演、配信、発売日など)であれば "schedule"、
-   そうでない一般的なニュース・話題であれば "news" と判定してください。
-2. event_date: item_typeが"schedule"で、本文中に具体的な日付が明記されている場合はISO 8601形式(YYYY-MM-DD、時刻が分かればYYYY-MM-DDTHH:MM:SS)で抽出してください。
-   日付が分からない/対象外の場合は null にしてください。
-3. title_ja: タイトルを自然な日本語にしてください(すでに日本語なら整形のみでそのまま可)。
-4. summary_ja: 本文を2〜3文程度の日本語で要約してください。
+1. item_type: この記事が以下の4種類のいずれかに該当する場合のみ "schedule"、それ以外(TV/ラジオ/雑誌出演、配信リリース、一般的なニュース・話題など)は "news" と判定してください。
+   - LIVE: ライブ・コンサート・ファンミーティング等の開催日、チケット先行/一般販売日
+   - GOODS: グッズの発売日・受注開始日
+   - RELEASE: DVD/Blu-rayの発売日
+   (上記に当てはまらない、配信限定のリリースやTV/ラジオ/雑誌出演、キャンペーン告知などは全て"news"です)
+2. schedule_category: item_typeが"schedule"の場合、上記のどれに該当するか "LIVE" / "GOODS" / "RELEASE" のいずれかを入れてください。newsの場合は null。
+3. event_date: item_typeが"schedule"で、本文中に具体的な日付が明記されている場合はISO 8601形式(YYYY-MM-DD、時刻が分かればYYYY-MM-DDTHH:MM:SS)で抽出してください。
+   日付が分からない/対象外の場合は null にしてください(その場合item_typeも"news"にしてください)。
+4. title_ja: タイトルを自然な日本語にしてください(すでに日本語なら整形のみでそのまま可)。
+5. summary_ja: 本文を2〜3文程度の日本語で要約してください。
 
 # 出力形式(このJSONのみを出力)
 {{
   "item_type": "news または schedule",
+  "schedule_category": "LIVE / GOODS / RELEASE / null",
   "event_date": "ISO8601形式の日付、または null",
   "title_ja": "日本語タイトル",
   "summary_ja": "日本語要約"
@@ -55,6 +62,7 @@ def classify_and_summarize(title: str, category: str, content: str) -> dict:
     """
     fallback = {
         "item_type": "news",
+        "schedule_category": None,
         "event_date": None,
         "title_ja": title,
         "summary_ja": "",
@@ -88,8 +96,17 @@ def classify_and_summarize(title: str, category: str, content: str) -> dict:
             if text.lower().startswith("json"):
                 text = text[4:]
         result = json.loads(text)
+
+        schedule_category = result.get("schedule_category")
+        item_type = result.get("item_type", "news")
+        if item_type == "schedule" and schedule_category not in SCHEDULE_CATEGORIES:
+            # 分類が不正/対象外カテゴリならnews扱いにフォールバック
+            item_type = "news"
+            schedule_category = None
+
         return {
-            "item_type": result.get("item_type", "news"),
+            "item_type": item_type,
+            "schedule_category": schedule_category,
             "event_date": result.get("event_date"),
             "title_ja": result.get("title_ja") or title,
             "summary_ja": result.get("summary_ja") or "",

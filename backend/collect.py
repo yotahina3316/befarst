@@ -1,6 +1,6 @@
 """GitHub Actionsから定期実行される、1回分の収集サイクル。
 
-情報取得 → AI分類/日付抽出/翻訳/要約 → frontend/data/*.json へ保存 → 新着スケジュールをPush通知、を1回実行する。
+情報取得 → AI分類/日付抽出/翻訳/要約 → docs/data/*.json へ保存 → 新着スケジュールをPush通知、を1回実行する。
 状態(重複除去)はJSONファイル自体に保存済みのsource_idで判定するため、別途DBは使わない。
 """
 
@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from befarst.ai import classify_and_summarize
+from befarst.birthdays import upcoming_birthdays
 from befarst.collectors import official_news, youtube
 from befarst.notifications import notify_all
 
@@ -87,11 +88,18 @@ def main() -> None:
 
         if ai_result["item_type"] == "schedule" and event_date:
             item["event_date"] = event_date
+            item["schedule_category"] = ai_result["schedule_category"]
             schedule_items.append(item)
             new_schedule_for_notify.append(item)
         else:
             news_items.append(item)
             new_news_count += 1
+
+    # メンバー誕生日(公式サイトのニュースとは別枠で、直近の誕生日を毎回補充する)
+    birthday_items = upcoming_birthdays(existing_ids(schedule_items, source="birthday"))
+    for item in birthday_items:
+        schedule_items.append(item)
+        new_schedule_for_notify.append(item)
 
     news_items.sort(key=lambda x: x["published_at"], reverse=True)
     news_items = news_items[:MAX_NEWS_ITEMS]
@@ -104,9 +112,10 @@ def main() -> None:
     save_json(SCHEDULE_PATH, schedule_items)
 
     logger.info(
-        "収集完了: 新規news=%s件, 新規schedule=%s件(保存件数 news=%s, schedule=%s)",
+        "収集完了: 新規news=%s件, 新規schedule=%s件(誕生日%s件含む, 保存件数 news=%s, schedule=%s)",
         new_news_count,
         len(new_schedule_for_notify),
+        len(birthday_items),
         len(news_items),
         len(schedule_items),
     )
