@@ -1,6 +1,17 @@
 [
   {
     "source": "youtube",
+    "source_id": "jcu5ug0xvxg",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / WATCH ME  feat. BIA -Dance Practice-",
+    "title_ja": "BE:FIRST / WATCH ME  feat. BIA -Dance Practice-",
+    "summary_ja": "",
+    "url": "https://www.youtube.com/watch?v=jcu5ug0xvxg",
+    "published_at": "2026-09-21T05:00:12"
+  },
+  {
+    "source": "youtube",
     "source_id": "_oVynBETSvs",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
