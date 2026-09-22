@@ -1,5 +1,90 @@
 [
   {
+    "source": "birthday",
+    "source_id": "SOTA-2026",
+    "source_category": "BIRTHDAY",
+    "schedule_category": "BIRTHDAY",
+    "confidence": "OFFICIAL",
+    "title_original": "SOTA 誕生日",
+    "title_ja": "SOTA 誕生日",
+    "summary_ja": "SOTA 誕生日です。",
+    "image_url": "./images/members/sota.webp",
+    "members": [
+      "SOTA"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-09-22T23:09:20.381670",
+    "event_date": "2026-01-18"
+  },
+  {
+    "source": "birthday",
+    "source_id": "MANATO-2026",
+    "source_category": "BIRTHDAY",
+    "schedule_category": "BIRTHDAY",
+    "confidence": "OFFICIAL",
+    "title_original": "MANATO 誕生日",
+    "title_ja": "MANATO 誕生日",
+    "summary_ja": "MANATO 誕生日です。",
+    "image_url": "./images/members/manato.webp",
+    "members": [
+      "MANATO"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-09-22T23:09:20.381670",
+    "event_date": "2026-04-29"
+  },
+  {
+    "source": "birthday",
+    "source_id": "JUNON-2026",
+    "source_category": "BIRTHDAY",
+    "schedule_category": "BIRTHDAY",
+    "confidence": "OFFICIAL",
+    "title_original": "JUNON 誕生日",
+    "title_ja": "JUNON 誕生日",
+    "summary_ja": "JUNON 誕生日です。",
+    "image_url": "./images/members/junon.webp",
+    "members": [
+      "JUNON"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-09-22T23:09:20.381670",
+    "event_date": "2026-05-23"
+  },
+  {
+    "source": "birthday",
+    "source_id": "SHUNTO-2026",
+    "source_category": "BIRTHDAY",
+    "schedule_category": "BIRTHDAY",
+    "confidence": "OFFICIAL",
+    "title_original": "SHUNTO 誕生日",
+    "title_ja": "SHUNTO 誕生日",
+    "summary_ja": "SHUNTO 誕生日です。",
+    "image_url": "./images/members/shunto.webp",
+    "members": [
+      "SHUNTO"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-09-22T23:09:20.381670",
+    "event_date": "2026-09-01"
+  },
+  {
+    "source": "birthday",
+    "source_id": "LEO-2026",
+    "source_category": "BIRTHDAY",
+    "schedule_category": "BIRTHDAY",
+    "confidence": "OFFICIAL",
+    "title_original": "LEO 誕生日",
+    "title_ja": "LEO 誕生日",
+    "summary_ja": "LEO 誕生日です。",
+    "image_url": "./images/members/leo.webp",
+    "members": [
+      "LEO"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-09-22T23:09:20.381670",
+    "event_date": "2026-09-08"
+  },
+  {
     "source": "official_news",
     "source_id": "6570",
     "source_category": "LIVE",
@@ -227,5 +312,44 @@
     "members": [
       "LEO"
     ]
+  },
+  {
+    "source": "anniversary",
+    "source_id": "debut-2027",
+    "source_category": "ANNIVERSARY",
+    "schedule_category": "ANNIVERSARY",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST デビュー記念日",
+    "title_ja": "BE:FIRST デビュー記念日",
+    "summary_ja": "BE:FIRST デビュー記念日です。",
+    "image_url": null,
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-09-22T23:09:20.381670",
+    "event_date": "2027-11-03"
+  },
+  {
+    "source": "birthday",
+    "source_id": "RYUHEI-2027",
+    "source_category": "BIRTHDAY",
+    "schedule_category": "BIRTHDAY",
+    "confidence": "OFFICIAL",
+    "title_original": "RYUHEI 誕生日",
+    "title_ja": "RYUHEI 誕生日",
+    "summary_ja": "RYUHEI 誕生日です。",
+    "image_url": "./images/members/ryuhei.webp",
+    "members": [
+      "RYUHEI"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-09-22T23:09:20.381670",
+    "event_date": "2027-11-07"
   }
 ]

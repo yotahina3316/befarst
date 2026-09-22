@@ -26,21 +26,26 @@ function formatDate(iso) {
 
 // ---------- カード共通レイアウト(サムネイル画像対応) ----------
 
+// 誕生日/記念日は元記事のような具体的なリンク先を持たない(公式サイトTOPを機械的に
+// 入れているだけで内容と無関係)。カードをリンクにすると押しても誕生日と関係ない
+// ページに飛んでしまい紛らわしいため、この2種類だけはリンクにせずその場に表示する。
 function itemCardHTML(item, metaHtml) {
   const title = item.title_ja || item.title_original;
   const thumb = item.image_url
     ? `<div class="item-thumb"><img src="${item.image_url}" alt="" loading="lazy" /></div>`
     : "";
-  return `
-    <a class="item-card" href="${item.url}" target="_blank" rel="noopener">
+  const body = `
       ${thumb}
       <div class="item-body">
         <div class="meta">${metaHtml}</div>
         <div class="item-title">${title}</div>
         ${item.summary_ja ? `<div class="item-summary">${item.summary_ja}</div>` : ""}
       </div>
-    </a>
   `;
+  const isRecurring = item.source === "birthday" || item.source === "anniversary";
+  return isRecurring
+    ? `<div class="item-card">${body}</div>`
+    : `<a class="item-card" href="${item.url}" target="_blank" rel="noopener">${body}</a>`;
 }
 
 function newsMetaHTML(item) {

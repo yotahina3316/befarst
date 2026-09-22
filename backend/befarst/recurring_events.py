@@ -25,11 +25,16 @@ ANNIVERSARIES: list[tuple[str, str, int, int]] = [
 ]
 
 
-def _next_occurrence(month: int, day: int, today: date) -> date:
-    occurrence = date(today.year, month, day)
-    if occurrence < today:
-        occurrence = date(today.year + 1, month, day)
-    return occurrence
+def _occurrences(month: int, day: int, today: date) -> list[date]:
+    """当年と翌年、両方の日付を返す。
+
+    「今後の直近1件」だけを返すと、すでに今年の誕生日を迎えたメンバーの分は
+    来年の日付にしか存在しなくなり、カレンダーを開いても(半年〜1年先まで
+    ページをめくらない限り)誕生日が一切表示されない状態になっていた
+    (2026-09-23発覚)。当年分も常に生成しておくことで、今年すでに過ぎた日付
+    も含めてカレンダー上のその月を開けば表示されるようにする。
+    """
+    return [date(today.year, month, day), date(today.year + 1, month, day)]
 
 
 def _build_item(
@@ -68,17 +73,17 @@ def upcoming_recurring_events(existing_source_ids: set[str]) -> list[dict]:
     items: list[dict] = []
 
     for name, month, day in MEMBERS:
-        occurrence = _next_occurrence(month, day, today)
         image_url = f"./images/members/{name.lower()}.webp"
-        item = _build_item("birthday", name, f"{name} 誕生日", occurrence, "BIRTHDAY", [name], image_url)
-        if item["source_id"] not in existing_source_ids:
-            items.append(item)
+        for occurrence in _occurrences(month, day, today):
+            item = _build_item("birthday", name, f"{name} 誕生日", occurrence, "BIRTHDAY", [name], image_url)
+            if item["source_id"] not in existing_source_ids:
+                items.append(item)
 
     for key, title, month, day in ANNIVERSARIES:
-        occurrence = _next_occurrence(month, day, today)
-        # グループ全体の記念日なので、全メンバーのページに表示されるようタグ付けする
-        item = _build_item("anniversary", key, title, occurrence, "ANNIVERSARY", list(MEMBER_NAMES), None)
-        if item["source_id"] not in existing_source_ids:
-            items.append(item)
+        for occurrence in _occurrences(month, day, today):
+            # グループ全体の記念日なので、全メンバーのページに表示されるようタグ付けする
+            item = _build_item("anniversary", key, title, occurrence, "ANNIVERSARY", list(MEMBER_NAMES), None)
+            if item["source_id"] not in existing_source_ids:
+                items.append(item)
 
     return items

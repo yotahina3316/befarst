@@ -23,10 +23,19 @@ NEWS_PATH = REPO_ROOT / "docs" / "data" / "news.json"
 SCHEDULE_PATH = REPO_ROOT / "docs" / "data" / "schedule.json"
 PILGRIMAGE_PATH = REPO_ROOT / "docs" / "data" / "pilgrimage.json"
 FASHION_PATH = REPO_ROOT / "docs" / "data" / "fashion.json"
+# news/scheduleの外に置く「一度処理した候補のsource_id」の記録(docsの外なのでPagesには出ない)。
+# news/scheduleそのものだけをdedup判定に使うと、schedule判定された記事が
+# SCHEDULE_PAST_DAYSの範囲外(=開催日がすでに数日以上前)ですぐ除外される場合に、
+# その記事のsource_idがどこにも保存されず、次回実行時に「新着」として再取得→再度AI分類
+# →再度Push通知、が実行のたびに永久に繰り返される不具合が発生した(2026-09-23発覚)。
+SEEN_IDS_PATH = REPO_ROOT / "data" / "seen_ids.json"
 
 MAX_NEWS_ITEMS = 200
 SCHEDULE_PAST_DAYS = 3  # 直近の「見逃し確認」用に、開催済みでも数日は残す
+RECURRING_SOURCES = {"birthday", "anniversary"}
+RECURRING_PAST_DAYS = 400  # 誕生日/記念日は年1回のみのため、SCHEDULE_PAST_DAYSでは早く消えすぎる。翌年分が生成された後に古い方を消せる程度の猶予を持たせる
 MAX_CANDIDATE_ITEMS = 100  # 聖地巡礼/BE:FashionのAI候補は増え続けるため上限を設ける(status="confirmed"は上限対象外)
+MAX_SEEN_IDS_PER_SOURCE = 2000  # 無限に増え続けないよう、ソースごとに直近分のみ保持
 
 
 def trim_candidates(items: list[dict], max_candidates: int) -> list[dict]:
@@ -46,6 +55,17 @@ def load_json(path: Path) -> list[dict]:
 def save_json(path: Path, items: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(items, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def load_seen_ids(path: Path) -> dict[str, list[str]]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def save_seen_ids(path: Path, seen_ids: dict[str, list[str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(seen_ids, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def existing_ids(*item_lists: list[dict], source: str) -> set[str]:
@@ -71,19 +91,25 @@ def main() -> None:
     schedule_items = load_json(SCHEDULE_PATH)
     pilgrimage_items = load_json(PILGRIMAGE_PATH)
     fashion_items = load_json(FASHION_PATH)
+    seen_ids = load_seen_ids(SEEN_IDS_PATH)
 
     candidates: list[dict] = []
     candidates += official_news.fetch_new_posts(
         existing_ids(news_items, schedule_items, source="official_news")
+        | set(seen_ids.get("official_news", []))
     )
     candidates += youtube.fetch_new_videos(
-        existing_ids(news_items, schedule_items, source="youtube")
+        existing_ids(news_items, schedule_items, source="youtube") | set(seen_ids.get("youtube", []))
     )
 
     new_schedule_for_notify: list[dict] = []
     new_news_count = 0
 
     for candidate in candidates:
+        # 分類結果がnews/scheduleどちらになるか、あるいは開催日が過去でschedule保存後すぐ
+        # 除外されるかに関わらず、一度処理した候補は二度と取得・分類・通知しないようここで記録する。
+        seen_ids.setdefault(candidate["source"], []).append(candidate["source_id"])
+
         ai_result = classify_and_summarize(
             title=candidate["title"],
             category=candidate["source_category"],
@@ -173,16 +199,25 @@ def main() -> None:
     news_items = news_items[:MAX_NEWS_ITEMS]
 
     cutoff = (datetime.utcnow() - timedelta(days=SCHEDULE_PAST_DAYS)).isoformat()
-    schedule_items = [i for i in schedule_items if i["event_date"] >= cutoff]
+    recurring_cutoff = (datetime.utcnow() - timedelta(days=RECURRING_PAST_DAYS)).isoformat()
+    schedule_items = [
+        i
+        for i in schedule_items
+        if i["event_date"] >= (recurring_cutoff if i["source"] in RECURRING_SOURCES else cutoff)
+    ]
     schedule_items.sort(key=lambda x: x["event_date"])
 
     pilgrimage_items = trim_candidates(pilgrimage_items, MAX_CANDIDATE_ITEMS)
     fashion_items = trim_candidates(fashion_items, MAX_CANDIDATE_ITEMS)
 
+    for source in seen_ids:
+        seen_ids[source] = seen_ids[source][-MAX_SEEN_IDS_PER_SOURCE:]
+
     save_json(NEWS_PATH, news_items)
     save_json(SCHEDULE_PATH, schedule_items)
     save_json(PILGRIMAGE_PATH, pilgrimage_items)
     save_json(FASHION_PATH, fashion_items)
+    save_seen_ids(SEEN_IDS_PATH, seen_ids)
 
     logger.info(
         "収集完了: 新規news=%s件, 新規schedule=%s件(誕生日/記念日%s件含む, 保存件数 news=%s, schedule=%s, "
@@ -197,6 +232,11 @@ def main() -> None:
     )
 
     for item in new_schedule_for_notify:
+        # 開催日がすでに数日以上前の場合は、今から知らせても意味のある新着ではない
+        # ため通知しない(誕生日/記念日はカレンダー表示上は長期間保持するが、
+        # 通知するかどうかの判断は他のカテゴリと同じ「直近かどうか」で揃える)。
+        if item["event_date"] < cutoff:
+            continue
         notify_all(
             title="BE:FIRST 新着スケジュール",
             body=item["title_ja"] or item["title_original"],

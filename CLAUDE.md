@@ -15,6 +15,17 @@ BE:FIRST関連の情報を集約・分類・翻訳・要約して届ける、**�
 - **Phase 1(完成)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
 - **Phase 2(着手済み、2026-09-21〜)**: `MEMBER`別ページ、`聖地巡礼`、`BE:Fashion`を実装済み(下記参照)。残りのHOME、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応は未着手(企画書に記載のみ)。
 
+### Push通知の重複配信バグ修正 + 誕生日のカレンダー表示改善(2026-09-23実装、ユーザー指摘)
+
+- **不具合1: 同じ内容のPush通知が30分おきに繰り返し届く**。原因はGitHub Actionsの実行ログ(`gh run view <id> --log`)を遡って特定した: 公式サイトの新着記事が「開催日はすでにSCHEDULE_PAST_DAYS(3日)より前」とAI判定された場合、その記事は`schedule_items`に一度追加されたのち、保存直前のカットオフ処理で即座に除外されていた。この記事のsource_idはnews.json/schedule.jsonのどちらにも保存されないため、次回実行時にもまだ「未処理」として扱われ、公式サイトAPIから再取得→AI再分類→`notify_all()`が再度呼ばれる、というサイクルが記事が十分古くなる(=次回取得時に他の新着記事に押し出される)まで無限に繰り返されていた(実例: 2026-09-18公開の「WATCH ME Listening Party」記事が2026-09-22 15:39〜22:39 UTCの間、ほぼ全実行で「新規schedule=1件」と判定され続けていたが、実際のcommitは1回も発生していなかったことを`gh run list`/`gh run view`のログとgit historyの突き合わせで確認した)。
+  - 修正: `backend/collect.py`に`data/seen_ids.json`(`docs/`の外なのでPagesには公開されない)という、newsやscheduleの保存内容とは独立に「一度AI分類まで処理したsource_id」だけを記録するファイルを追加した。分類結果がnews/scheduleどちらになるか、カットオフで即除外されるかに関わらず、候補を処理し始めた時点で必ずこのファイルに記録するため、同じ記事が二度と再取得・再分類・再通知されることはない。`.github/workflows/collect.yml`の`git add`対象にも`data/seen_ids.json`を追加した(これを追加し忘れると、Actions実行のたびにチェックアウトが初期化され記録が消えるため、この修正自体が機能しない点に注意)。
+  - 合わせて、開催日がすでに数日以上前のスケジュール項目は(新規追加であっても)Push通知そのものをスキップするようにした(`collect.py`の`new_schedule_for_notify`ループに`event_date < cutoff`のガードを追加)。今から知らせても意味のない過去の予定について通知が飛ぶことを防ぐ。
+  - **副次的に発覚した別の不具合**: `.github/workflows/collect.yml`の`git add`対象がもともと`docs/data/news.json docs/data/schedule.json`のみで、`docs/data/pilgrimage.json`・`docs/data/fashion.json`が含まれていなかった。つまり聖地巡礼/BE:Fashion機能(2026-09-22実装)のAI抽出結果は、GitHub Actions上ではローカルで生成されるだけで一度もコミット・公開されていなかった。今回`git add`対象にこの2ファイルも追加して修正した。
+- **不具合2: メンバーの誕生日がSCHEDULEカレンダーに反映されていない**。原因は`backend/befarst/recurring_events.py`の`_next_occurrence()`が「今日以降でもっとも近い1回分の日付」しか生成しない設計だったこと。今年の誕生日をすでに迎えたメンバー(2026-09-23時点でSOTA/MANATO/JUNON/SHUNTO/LEOの5人が該当)は来年の日付でしか予定が存在せず、カレンダーで今年の該当月を開いても(すでに過ぎているため当然だが)何も表示されず、「反映されていない」ように見えていた。
+  - 修正: `_occurrences()`(旧`_next_occurrence()`)が当年・翌年の両方の日付を常に生成するように変更した。これにより、今年すでに誕生日を迎えたメンバーの分もカレンダー上の該当月に表示され続ける(過去の記録として)。あわせて`collect.py`側で、誕生日/記念日(`RECURRING_SOURCES = {"birthday", "anniversary"}`)は通常のスケジュール項目に適用される`SCHEDULE_PAST_DAYS`(3日)ではなく、より長い`RECURRING_PAST_DAYS`(400日、翌年分が生成されたあとに古い方を消せる程度の猶予)を保持期限として使うようにした。年1回しかないイベントを他のスケジュール(ライブ等の一過性の予定)と同じ「3日で消える」ルールに乗せると、生成した直後に消えてしまうため。
+- **不具合3: MEMBERページの「誕生日」項目のリンク先が誕生日と無関係**。誕生日/記念日の予定項目は`recurring_events.py`側で`url`を機械的に`https://befirst.tokyo/`(公式サイトTOP)にしていたが、これはニュース記事のような具体的なリンク先が存在しないための便宜的な値であり、タップすると誕生日と無関係なページに飛んでしまっていた。
+  - 修正: `docs/js/app.js`の`itemCardHTML()`で、`item.source`が`"birthday"`または`"anniversary"`の場合はカード全体を`<a>`ではなく`<div>`でレンダリングするようにし、その場に情報を表示するだけでリンクとして機能しないようにした(MEMBERページの予定一覧・SCHEDULEカレンダーの日別詳細、両方に共通の関数のため両方に反映される)。
+
 ### TOPページのヒーロー画像自動更新、聖地巡礼/BE:Fashionタブ(2026-09-22実装、ユーザー指示)
 
 - **ヒーロー画像の定期更新**: 専用の画像素材を用意・保守する運用を避けるため、バックエンド側には手を入れず、フロント(`docs/js/app.js`の`updateHeroImage()`)が`news.json`読み込み後に「`image_url`を持つ最新ニュース記事」のサムネイルをヒーロー画像として差し替える方式にした。該当記事が無い場合は元の`docs/images/hero.webp`のまま。collect.pyが30分おきに新着ニュースを追加するたびに、結果的にヒーロー画像も自動で更新される。
