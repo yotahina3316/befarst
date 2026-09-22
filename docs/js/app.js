@@ -70,6 +70,17 @@ function renderNewsItems(container, items) {
 
 let allNewsItems = [];
 
+// 最新ニュースのサムネイルをTOPページのヒーロー画像として使う(専用の画像素材を用意・保守する必要が無いようにするため)。
+// サムネイルを持つ記事が無い場合は元のhero.webpのまま。
+function updateHeroImage() {
+  const heroImg = document.querySelector(".hero img");
+  if (!heroImg) return;
+  const withThumb = allNewsItems.find((item) => item.image_url);
+  if (withThumb) {
+    heroImg.src = withThumb.image_url;
+  }
+}
+
 async function loadNews() {
   const container = document.getElementById("news-list");
   try {
@@ -77,6 +88,7 @@ async function loadNews() {
     allNewsItems = await res.json();
     renderNewsItems(container, allNewsItems);
     renderMemberTab();
+    updateHeroImage();
   } catch (e) {
     container.innerHTML = '<p class="empty">読み込みに失敗しました</p>';
   }
@@ -265,6 +277,84 @@ function renderMemberTab() {
     : '<p class="empty">関連ニュースはありません</p>';
 }
 
+// ---------- 聖地巡礼 / BE:Fashion ----------
+// どちらもAIが記事本文から自動抽出した「候補(candidate)」と、手動でdata/*.jsonを
+// 編集してstatusを"confirmed"にした確認済み情報を同じ一覧に表示する。
+
+function statusBadgeHTML(status) {
+  return status === "confirmed"
+    ? '<span class="badge confirmed">確認済み</span>'
+    : '<span class="badge candidate">AI候補</span>';
+}
+
+function sourceLinkHTML(item) {
+  return item.source_url
+    ? `<a class="place-source-link" href="${item.source_url}" target="_blank" rel="noopener">元記事を見る</a>`
+    : "";
+}
+
+function pilgrimageCardHTML(item) {
+  const thumb = item.image_url
+    ? `<div class="item-thumb"><img src="${item.image_url}" alt="" loading="lazy" /></div>`
+    : "";
+  return `
+    <div class="item-card">
+      ${thumb}
+      <div class="item-body">
+        <div class="meta">${statusBadgeHTML(item.status)}</div>
+        <div class="item-title">${item.name_ja || ""}</div>
+        ${item.address ? `<div class="item-summary">住所: ${item.address}</div>` : ""}
+        ${item.description ? `<div class="item-summary">${item.description}</div>` : ""}
+        ${sourceLinkHTML(item)}
+      </div>
+    </div>
+  `;
+}
+
+async function loadPilgrimage() {
+  const container = document.getElementById("pilgrimage-list");
+  try {
+    const res = await fetch("./data/pilgrimage.json", { cache: "no-store" });
+    const items = await res.json();
+    container.innerHTML = items.length
+      ? items.map(pilgrimageCardHTML).join("")
+      : '<p class="empty">まだ情報がありません</p>';
+  } catch (e) {
+    container.innerHTML = '<p class="empty">読み込みに失敗しました</p>';
+  }
+}
+
+function fashionCardHTML(item) {
+  const thumb = item.image_url
+    ? `<div class="item-thumb"><img src="${item.image_url}" alt="" loading="lazy" /></div>`
+    : "";
+  const metaExtra = [item.member, item.brand].filter(Boolean).map((v) => `<span class="item-date">${v}</span>`).join("");
+  return `
+    <div class="item-card">
+      ${thumb}
+      <div class="item-body">
+        <div class="meta">${statusBadgeHTML(item.status)}${metaExtra}</div>
+        <div class="item-title">${item.item_name || ""}</div>
+        ${item.description ? `<div class="item-summary">${item.description}</div>` : ""}
+        ${sourceLinkHTML(item)}
+      </div>
+    </div>
+  `;
+}
+
+async function loadFashion() {
+  const container = document.getElementById("fashion-list");
+  try {
+    const res = await fetch("./data/fashion.json", { cache: "no-store" });
+    const items = await res.json();
+    container.innerHTML = items.length
+      ? items.map(fashionCardHTML).join("")
+      : '<p class="empty">まだ情報がありません</p>';
+  } catch (e) {
+    container.innerHTML = '<p class="empty">読み込みに失敗しました</p>';
+  }
+}
+
 // ---------- タブ切り替え ----------
 
 function setupTabs() {
@@ -333,4 +423,6 @@ setupCalendarNav();
 setupMemberChips();
 loadSchedule();
 loadNews();
+loadPilgrimage();
+loadFashion();
 setupPushNotifications();

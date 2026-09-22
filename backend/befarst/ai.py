@@ -119,3 +119,69 @@ def classify_and_summarize(title: str, category: str, content: str) -> dict:
     except Exception:
         logger.exception("AI分類処理に失敗しました。フォールバック値を使用します。")
         return fallback
+
+
+EXTRAS_PROMPT_TEMPLATE = """あなたはBE:FIRSTのファン向け情報整理アシスタントです。
+以下の記事本文から、次の2種類の情報を抽出してください。該当が無い場合はnull/空配列にしてください。
+推測で断定せず、本文に明記されている場合のみ抽出してください。説明文は不要で、指定のJSON形式のみを出力してください。
+
+# 記事情報
+タイトル: {title}
+本文(抜粋): {content}
+
+# タスク
+1. pilgrimage: BE:FIRSTのメンバーやグループに関連する具体的な「場所」(ロケ地、聖地巡礼スポットになりうる場所。例: 撮影が行われた店舗・施設、出演した会場、関連するカフェやショップ、出身地など)への言及が1件でもあれば、最も具体的なもの1件を抽出してください。「東京で」のような曖昧な地名のみの言及は対象外です。
+2. fashion_items: メンバーが着用した服・アクセサリーへの具体的な言及(ブランド名やアイテム名が本文から分かるもの)があれば、複数抽出してください。
+
+# 出力形式(このJSONのみを出力)
+{{
+  "pilgrimage": {{"name_ja": "場所の名称", "description": "説明(1〜2文)", "address": "住所が分かれば、無ければnull"}} または null,
+  "fashion_items": [
+    {{"item_name": "アイテム名", "brand": "ブランド名。分からなければnull", "member": "着用メンバー名。分からなければnull", "category": "clothing または accessory", "description": "説明(1文程度)"}}
+  ]
+}}
+"""
+
+
+def extract_extras(title: str, content: str) -> dict:
+    """記事1件から聖地巡礼・BE:Fashionの候補情報をAIで抽出する(ベストエフォート)。
+
+    失敗した場合や該当が無い場合はどちらも空扱いで返す。分類/翻訳(classify_and_summarize)
+    とは別のAI呼び出しとして行い、失敗してもnews/schedule本体の処理には影響しない。
+    """
+    fallback = {"pilgrimage": None, "fashion_items": []}
+
+    if not settings.anthropic_api_key:
+        return fallback
+
+    prompt = EXTRAS_PROMPT_TEMPLATE.format(title=title, content=(content or "")[:2000])
+
+    try:
+        client = _get_client()
+        response = client.messages.create(
+            model="claude-sonnet-5",
+            max_tokens=1024,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text_block = next(block for block in response.content if block.type == "text")
+        text = text_block.text.strip()
+        if text.startswith("```"):
+            text = text.strip("`")
+            text = text.split("\n", 1)[1] if "\n" in text else text
+            if text.lower().startswith("json"):
+                text = text[4:]
+        result = json.loads(text)
+
+        pilgrimage = result.get("pilgrimage")
+        if not isinstance(pilgrimage, dict) or not pilgrimage.get("name_ja"):
+            pilgrimage = None
+
+        fashion_items = result.get("fashion_items")
+        if not isinstance(fashion_items, list):
+            fashion_items = []
+        fashion_items = [f for f in fashion_items if isinstance(f, dict) and f.get("item_name")]
+
+        return {"pilgrimage": pilgrimage, "fashion_items": fashion_items}
+    except Exception:
+        logger.exception("聖地巡礼/BE:Fashion抽出に失敗しました。スキップします。")
+        return fallback

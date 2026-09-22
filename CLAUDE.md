@@ -13,7 +13,16 @@ BE:FIRST関連の情報を集約・分類・翻訳・要約して届ける、**�
 ## フェーズ構成
 
 - **Phase 1(完成)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
-- **Phase 2(着手済み、2026-09-21〜)**: `MEMBER`別ページを実装済み(下記参照)。残りのHOME、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応は未着手(企画書に記載のみ)。
+- **Phase 2(着手済み、2026-09-21〜)**: `MEMBER`別ページ、`聖地巡礼`、`BE:Fashion`を実装済み(下記参照)。残りのHOME、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応は未着手(企画書に記載のみ)。
+
+### TOPページのヒーロー画像自動更新、聖地巡礼/BE:Fashionタブ(2026-09-22実装、ユーザー指示)
+
+- **ヒーロー画像の定期更新**: 専用の画像素材を用意・保守する運用を避けるため、バックエンド側には手を入れず、フロント(`docs/js/app.js`の`updateHeroImage()`)が`news.json`読み込み後に「`image_url`を持つ最新ニュース記事」のサムネイルをヒーロー画像として差し替える方式にした。該当記事が無い場合は元の`docs/images/hero.webp`のまま。collect.pyが30分おきに新着ニュースを追加するたびに、結果的にヒーロー画像も自動で更新される。
+- **聖地巡礼(ロケ地・関連スポット紹介)/ BE:Fashion(着用アイテム紹介)**: どちらも公式サイト/YouTube以外に専用の情報源が無いため、**AIによる自動抽出(ベストエフォート)+ 手動キュレーションの併用**という方針にした(ユーザー承認済み)。
+  - `backend/befarst/ai.py`の`extract_extras()`が、collect.pyが処理する新着記事ごとに`classify_and_summarize()`とは別枠でもう1回Claude APIを呼び出し、本文から「聖地巡礼になりうる具体的な場所」(1件)と「メンバー着用アイテムの言及」(複数可)をベストエフォートで抽出する。該当が無ければ両方とも空を返し、失敗時も例外を握りnews/schedule本体の処理には影響させない。
+  - `backend/collect.py`の`main()`が、抽出結果を`docs/data/pilgrimage.json`・`docs/data/fashion.json`にそれぞれ`status: "candidate"`のアイテムとして追記する。各アイテムのidは元記事の`source_id`から`-pilgrimage`/`-fashion-{index}`を付与して生成するため、同じ記事から重複追記されることはない。
+  - **手動キュレーションの運用**: AIの抽出結果は誤検出・粒度のばらつきがありうるため、あくまで「候補(candidate)」として表示専用フラグ付きで並べる想定。ユーザーが内容を確認し、正しいものは`docs/data/pilgrimage.json`・`fashion.json`を直接編集して`"status": "confirmed"`に変更する(必要なら`name_ja`/`description`/`address`/`item_name`/`brand`等のフィールドも手動で補正・追記してよい)、誤りは配列から削除する、という運用をユーザー側で継続的に行う想定。`status: "confirmed"`のアイテムは`backend/collect.py`の`trim_candidates()`により上限件数の対象から常に除外され、消えることはない(`candidate`は新しい順に`MAX_CANDIDATE_ITEMS`=100件まで)。
+  - フロント(`docs/js/app.js`)は2タブ("聖地巡礼"/"BE:Fashion")を追加し、`pilgrimage.json`/`fashion.json`を直接fetchして一覧表示するのみ(`loadPilgrimage()`/`loadFashion()`)。各カードには「AI候補」/「確認済み」のバッジ(`statusBadgeHTML()`)と元記事へのリンクを表示する。
 
 ### MEMBERページ + サムネイル画像表示(2026-09-21実装、ユーザー指示「サイト内が寂しいので写真を増やしたい」)
 
@@ -79,7 +88,9 @@ befarst/
     ├── icons/
     └── data/
         ├── news.json        ニュース一覧(GitHub Actionsが更新、公開される)
-        └── schedule.json    スケジュール一覧(同上)
+        ├── schedule.json    スケジュール一覧(同上)
+        ├── pilgrimage.json  聖地巡礼スポット一覧(AI抽出候補+手動確認済み、同上)
+        └── fashion.json     BE:Fashionアイテム一覧(AI抽出候補+手動確認済み、同上)
 ```
 
 **注意**: `docs/`という名前だが「ドキュメント」ではなく、GitHub Pagesの標準機能(Settings→Pages→Source: Deploy from a branch→Folder: `/docs`)がこの名前のフォルダしか選べないため。実質的にはフロントエンド一式(旧`frontend/`)。

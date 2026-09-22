@@ -107,10 +107,12 @@ body {
   display: flex;
   gap: 8px;
   padding: 0 16px 12px;
+  overflow-x: auto;
 }
 
 .tab-btn {
-  flex: 1;
+  flex: none;
+  min-width: 84px;
   background: var(--surface);
   color: var(--text-muted);
   border: none;
@@ -119,6 +121,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .tab-btn.active {
@@ -203,6 +206,8 @@ body {
 .badge.cat-DIGITAL { background: var(--cat-digital); color: #023230; }
 .badge.cat-DEADLINE { background: var(--cat-deadline); color: white; }
 .badge.cat-ANNIVERSARY { background: var(--cat-anniversary); color: #2a0a3a; }
+.badge.candidate { background: var(--fan); color: white; }
+.badge.confirmed { background: var(--cat-birthday); color: #063014; }
 
 .item-date {
   color: var(--text-muted);
@@ -388,4 +393,19 @@ body {
 
 .member-section-title:not(:first-of-type) {
   margin-top: 22px;
+}
+
+/* ---------- 聖地巡礼 / BE:Fashion ---------- */
+
+.section-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
+.place-source-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--accent);
 }

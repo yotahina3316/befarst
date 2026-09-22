@@ -9,7 +9,7 @@ import logging
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from befarst.ai import classify_and_summarize
+from befarst.ai import classify_and_summarize, extract_extras
 from befarst.collectors import official_news, youtube
 from befarst.members import detect_members
 from befarst.notifications import notify_all
@@ -21,9 +21,20 @@ logger = logging.getLogger("collect")
 REPO_ROOT = Path(__file__).resolve().parent.parent
 NEWS_PATH = REPO_ROOT / "docs" / "data" / "news.json"
 SCHEDULE_PATH = REPO_ROOT / "docs" / "data" / "schedule.json"
+PILGRIMAGE_PATH = REPO_ROOT / "docs" / "data" / "pilgrimage.json"
+FASHION_PATH = REPO_ROOT / "docs" / "data" / "fashion.json"
 
 MAX_NEWS_ITEMS = 200
 SCHEDULE_PAST_DAYS = 3  # 直近の「見逃し確認」用に、開催済みでも数日は残す
+MAX_CANDIDATE_ITEMS = 100  # 聖地巡礼/BE:FashionのAI候補は増え続けるため上限を設ける(status="confirmed"は上限対象外)
+
+
+def trim_candidates(items: list[dict], max_candidates: int) -> list[dict]:
+    """confirmed(手動確認済み)は全件保持し、candidate(AI抽出候補)は新しい順に上限まで残す。"""
+    confirmed = [i for i in items if i.get("status") == "confirmed"]
+    candidates = [i for i in items if i.get("status") != "confirmed"]
+    candidates.sort(key=lambda x: x["created_at"], reverse=True)
+    return confirmed + candidates[:max_candidates]
 
 
 def load_json(path: Path) -> list[dict]:
@@ -58,6 +69,8 @@ def _parse_date(raw: str | None) -> str | None:
 def main() -> None:
     news_items = load_json(NEWS_PATH)
     schedule_items = load_json(SCHEDULE_PATH)
+    pilgrimage_items = load_json(PILGRIMAGE_PATH)
+    fashion_items = load_json(FASHION_PATH)
 
     candidates: list[dict] = []
     candidates += official_news.fetch_new_posts(
@@ -112,6 +125,41 @@ def main() -> None:
             news_items.append(item)
             new_news_count += 1
 
+        extras = extract_extras(title=candidate["title"], content=candidate["content"])
+        now_iso = datetime.utcnow().isoformat()
+
+        pilgrimage = extras["pilgrimage"]
+        if pilgrimage:
+            pilgrimage_items.append(
+                {
+                    "id": f"{candidate['source_id']}-pilgrimage",
+                    "status": "candidate",
+                    "name_ja": pilgrimage.get("name_ja"),
+                    "description": pilgrimage.get("description") or "",
+                    "address": pilgrimage.get("address"),
+                    "image_url": candidate.get("image_url"),
+                    "source_url": candidate["url"],
+                    "members": item["members"],
+                    "created_at": now_iso,
+                }
+            )
+
+        for idx, fashion_item in enumerate(extras["fashion_items"]):
+            fashion_items.append(
+                {
+                    "id": f"{candidate['source_id']}-fashion-{idx}",
+                    "status": "candidate",
+                    "item_name": fashion_item.get("item_name"),
+                    "brand": fashion_item.get("brand"),
+                    "member": fashion_item.get("member"),
+                    "category": fashion_item.get("category") or "clothing",
+                    "description": fashion_item.get("description") or "",
+                    "image_url": candidate.get("image_url"),
+                    "source_url": candidate["url"],
+                    "created_at": now_iso,
+                }
+            )
+
     # メンバー誕生日・グループ記念日(公式サイトのニュースとは別枠で、直近の日付を毎回補充する)
     recurring_existing = existing_ids(schedule_items, source="birthday") | existing_ids(
         schedule_items, source="anniversary"
@@ -128,16 +176,24 @@ def main() -> None:
     schedule_items = [i for i in schedule_items if i["event_date"] >= cutoff]
     schedule_items.sort(key=lambda x: x["event_date"])
 
+    pilgrimage_items = trim_candidates(pilgrimage_items, MAX_CANDIDATE_ITEMS)
+    fashion_items = trim_candidates(fashion_items, MAX_CANDIDATE_ITEMS)
+
     save_json(NEWS_PATH, news_items)
     save_json(SCHEDULE_PATH, schedule_items)
+    save_json(PILGRIMAGE_PATH, pilgrimage_items)
+    save_json(FASHION_PATH, fashion_items)
 
     logger.info(
-        "収集完了: 新規news=%s件, 新規schedule=%s件(誕生日/記念日%s件含む, 保存件数 news=%s, schedule=%s)",
+        "収集完了: 新規news=%s件, 新規schedule=%s件(誕生日/記念日%s件含む, 保存件数 news=%s, schedule=%s, "
+        "pilgrimage=%s, fashion=%s)",
         new_news_count,
         len(new_schedule_for_notify),
         len(recurring_items),
         len(news_items),
         len(schedule_items),
+        len(pilgrimage_items),
+        len(fashion_items),
     )
 
     for item in new_schedule_for_notify:
