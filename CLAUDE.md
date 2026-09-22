@@ -15,6 +15,22 @@ BE:FIRST関連の情報を集約・分類・翻訳・要約して届ける、**�
 - **Phase 1(完成)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
 - **Phase 2(着手済み、2026-09-21〜)**: `MEMBER`別ページ、`聖地巡礼`、`BE:Fashion`を実装済み(下記参照)。残りのHOME、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応は未着手(企画書に記載のみ)。
 
+### ロケ地/Fashion情報をWeb検索・YouTube検索からも収集(2026-09-23実装、ユーザー指示)
+
+- **背景**: 公式サイト記事・公式YouTube概要欄にはロケ地・着用アイテムの具体的な言及がほとんど無いため、`docs/data/pilgrimage.json`・`fashion.json`が実質空のままだった(ユーザー指摘)。「ネットで『BE:FIRST ロケ地』と検索すれば情報は無数に出てくる」ため、ファンブログ等のWeb検索結果、およびYouTubeのファン投稿動画も情報源に加えることにした。
+- **SNS(X/Instagram等)は対象外**: Xは検索APIが実質有料化されており(月$100〜)、Instagramには外部から公開投稿を検索できる一般公開APIが無いため、個人開発の無料枠では収集手段が無い。スクレイピングは規約違反・不安定さの両面で見送った。ユーザーにもこの制約を説明し、Google検索(Web全体)+ YouTube検索の2本立てで進めることの了承を得た。
+- **新しいスクリプト`backend/collect_web_extras.py`**: `collect.py`(news/schedule、30分おき)とは別のエントリーポイント・別スケジュール(1日1回、GitHub Actionsの`collect_web_extras.yml`、cron `0 3 * * *` = JST 12:00)で実行する。理由: 使用するGoogle Custom Search API(無料枠1日100クエリ)・YouTube Data API v3(無料枠1日1万ユニット、検索1回100ユニット)はどちらも30分おきの実行には向かない低いクエリ上限のため。
+  - `backend/befarst/collectors/web_search.py`: Google Custom Search APIで「BE:FIRST ロケ地」「BE:FIRST 聖地巡礼」「BE:FIRST 私服 ブランド」を検索し、未処理のURLについてページ本文の取得を試みる(失敗時は検索結果のsnippetで代用)。
+  - `backend/befarst/collectors/youtube_search.py`: YouTube Data API v3の`search.list`(全チャンネル横断のキーワード検索、公式チャンネルのRSSを見る`youtube.py`とは別物)で「BE:FIRST ロケ地」等を検索し、動画のタイトル・概要欄を対象にする。
+  - `backend/befarst/ai.py`の`extract_web_extras()`: 既存の`extract_extras()`(公式記事1件からロケ地を最大1件抽出)とは別に、まとめ記事等を想定してロケ地を複数抽出できるプロンプトを用意した。
+  - dedup(二度と同じURL/動画を処理しない)は`collect.py`と同じ`data/seen_ids.json`を共有し、`"web_search"`/`"youtube_search"`というキーで記録する(`"official_news"`/`"youtube"`とは別キーなので競合しない)。
+- **非公式ソースである旨の表示**: Web検索/YouTube検索由来の候補には`origin`(`"web_search"`/`"youtube_search"`、公式記事由来は`"official"`)と`origin_label`(画面表示用の文言)を付与し、フロント(`docs/js/app.js`の`originBadgeHTML()`)が既存の「AI候補/確認済み」バッジとは別に「Web検索」「YouTube検索」という枠線バッジ(`.badge.origin-unofficial`)を表示する。ファン投稿は誤情報・過度な断定を含みうるため、確認済み(`status: "confirmed"`)にする手動キュレーションの重要性は公式ソース由来のとき以上に高い。
+- **必要なAPIキーのセットアップ(ユーザー側の作業が必要)**:
+  1. [Google Cloud Console](https://console.cloud.google.com/)でプロジェクトを作成(または既存のものを利用)し、「APIとサービス」→「ライブラリ」で **Custom Search API** と **YouTube Data API v3** の両方を有効化する。
+  2. 「認証情報」→「認証情報を作成」→「APIキー」でAPIキーを1つ発行する(上記2つのAPIを同じキーで使い回せる。制限をかける場合は両APIを許可すること)。
+  3. [Programmable Search Engine 管理画面](https://programmablesearchengine.google.com/controlpanel/create)で新しい検索エンジンを作成し、「検索するサイト」を特定サイトではなく**「ウェブ全体を検索」**に設定した上で、発行された検索エンジンID(cx)を控える。
+  4. 発行したAPIキー・検索エンジンIDを、GitHub Secretsに`GOOGLE_SEARCH_API_KEY`・`GOOGLE_SEARCH_ENGINE_ID`・`YOUTUBE_DATA_API_KEY`として登録する(`gh secret set`、これまでの`ANTHROPIC_API_KEY`等と同じ要領)。未設定の間は`collect_web_extras.py`が該当の収集だけを自動でスキップする(エラーにはならない)。
+
 ### タブ名称変更(聖地巡礼→ロケ地、BE:Fashion→Fashion)+ アプリアイコン変更(2026-09-23実装、ユーザー指示)
 
 - `docs/index.html`のタブボタン表示文言のみ変更(`data-tab`属性の値・`docs/js/app.js`・`docs/data/pilgrimage.json`/`fashion.json`のファイル名や内部のフィールド名(`pilgrimage`/`fashion`)は変更していない。表示上のラベルのみの変更のため)。
@@ -83,21 +99,27 @@ befarst/
 ├── CLAUDE.md
 ├── BEFIRST_情報収集アプリ_企画整理.docx
 ├── .github/workflows/
-│   └── collect.yml       GitHub Actions: 30分おきに情報収集→data更新→コミット&push
+│   ├── collect.yml              GitHub Actions: 30分おきにnews/schedule収集→data更新→コミット&push
+│   └── collect_web_extras.yml   GitHub Actions: 1日1回、Web/YouTube検索でロケ地/BE:Fashion候補を収集
 ├── backend/               収集・AI処理スクリプト(常時稼働サーバーではない、都度実行のみ)
 │   ├── requirements.txt
 │   ├── .env.example       ローカル検証用。GitHub Actionsでは使わずSecretsを使う
-│   ├── collect.py         エントリーポイント(1回分の収集サイクルを実行)
+│   ├── collect.py             エントリーポイント: news/scheduleの収集サイクル(30分おき)
+│   ├── collect_web_extras.py  エントリーポイント: ロケ地/BE:Fashion候補のWeb/YouTube検索収集(1日1回)
 │   └── befarst/
 │       ├── config.py       環境変数読み込み
-│       ├── ai.py           Claude APIで分類/日付抽出/翻訳/要約
+│       ├── ai.py           Claude APIで分類/日付抽出/翻訳/要約、聖地巡礼/BE:Fashion抽出
+│       ├── storage.py      news/schedule/pilgrimage/fashion/seen_idsのJSON読み書き共通処理
 │       ├── notifications.py Web Push送信(pywebpush、購読先はdata/subscriptions.jsonから読む)
 │       └── collectors/
 │           ├── official_news.py  BE:FIRST公式サイトのWordPress REST APIから収集
-│           └── youtube.py        BE:FIRST公式YouTubeチャンネルのRSSから収集
+│           ├── youtube.py        BE:FIRST公式YouTubeチャンネルのRSSから収集
+│           ├── web_search.py     Google Custom Search APIでロケ地/Fashion関連のWebページを検索
+│           └── youtube_search.py YouTube Data API v3でロケ地/Fashion関連のファン投稿動画を検索
 ├── data/
 │   ├── README.md
-│   └── subscriptions.json  Web Push購読情報(GitHub Pagesでは公開されない。手動で1回だけ登録)
+│   ├── subscriptions.json  Web Push購読情報(GitHub Pagesでは公開されない。手動で1回だけ登録)
+│   └── seen_ids.json       一度処理した候補のsource_id記録(dedup用。GitHub Pagesでは公開されない)
 └── docs/                  ← GitHub Pagesの公開ルート(Settings→Pages→Branch:main /docs)
     ├── index.html          SCHEDULE/NEWSタブのUI
     ├── manifest.json

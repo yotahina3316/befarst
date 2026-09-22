@@ -292,6 +292,13 @@ function statusBadgeHTML(status) {
     : '<span class="badge candidate">AI候補</span>';
 }
 
+// 公式サイト/YouTube由来(origin: "official")以外は、ファンブログ・ファン投稿動画などの
+// 非公式ソースから見つけた情報だと分かるようバッジを追加で出す。
+function originBadgeHTML(item) {
+  if (!item.origin || item.origin === "official") return "";
+  return `<span class="badge origin-unofficial">${item.origin_label || "非公式ソース"}</span>`;
+}
+
 function sourceLinkHTML(item) {
   return item.source_url
     ? `<a class="place-source-link" href="${item.source_url}" target="_blank" rel="noopener">元記事を見る</a>`
@@ -306,7 +313,7 @@ function pilgrimageCardHTML(item) {
     <div class="item-card">
       ${thumb}
       <div class="item-body">
-        <div class="meta">${statusBadgeHTML(item.status)}</div>
+        <div class="meta">${statusBadgeHTML(item.status)}${originBadgeHTML(item)}</div>
         <div class="item-title">${item.name_ja || ""}</div>
         ${item.address ? `<div class="item-summary">住所: ${item.address}</div>` : ""}
         ${item.description ? `<div class="item-summary">${item.description}</div>` : ""}
@@ -338,7 +345,7 @@ function fashionCardHTML(item) {
     <div class="item-card">
       ${thumb}
       <div class="item-body">
-        <div class="meta">${statusBadgeHTML(item.status)}${metaExtra}</div>
+        <div class="meta">${statusBadgeHTML(item.status)}${originBadgeHTML(item)}${metaExtra}</div>
         <div class="item-title">${item.item_name || ""}</div>
         ${item.description ? `<div class="item-summary">${item.description}</div>` : ""}
         ${sourceLinkHTML(item)}

@@ -208,6 +208,7 @@ body {
 .badge.cat-ANNIVERSARY { background: var(--cat-anniversary); color: #2a0a3a; }
 .badge.candidate { background: var(--fan); color: white; }
 .badge.confirmed { background: var(--cat-birthday); color: #063014; }
+.badge.origin-unofficial { background: transparent; color: var(--text-muted); border: 1px solid var(--text-muted); }
 
 .item-date {
   color: var(--text-muted);

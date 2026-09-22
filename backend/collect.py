@@ -4,7 +4,6 @@
 状態(重複除去)はJSONファイル自体に保存済みのsource_idで判定するため、別途DBは使わない。
 """
 
-import json
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -14,6 +13,7 @@ from befarst.collectors import official_news, youtube
 from befarst.members import detect_members
 from befarst.notifications import notify_all
 from befarst.recurring_events import upcoming_recurring_events
+from befarst.storage import load_json, load_seen_ids, save_json, save_seen_ids, trim_candidates
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("collect")
@@ -36,36 +36,6 @@ RECURRING_SOURCES = {"birthday", "anniversary"}
 RECURRING_PAST_DAYS = 400  # 誕生日/記念日は年1回のみのため、SCHEDULE_PAST_DAYSでは早く消えすぎる。翌年分が生成された後に古い方を消せる程度の猶予を持たせる
 MAX_CANDIDATE_ITEMS = 100  # 聖地巡礼/BE:FashionのAI候補は増え続けるため上限を設ける(status="confirmed"は上限対象外)
 MAX_SEEN_IDS_PER_SOURCE = 2000  # 無限に増え続けないよう、ソースごとに直近分のみ保持
-
-
-def trim_candidates(items: list[dict], max_candidates: int) -> list[dict]:
-    """confirmed(手動確認済み)は全件保持し、candidate(AI抽出候補)は新しい順に上限まで残す。"""
-    confirmed = [i for i in items if i.get("status") == "confirmed"]
-    candidates = [i for i in items if i.get("status") != "confirmed"]
-    candidates.sort(key=lambda x: x["created_at"], reverse=True)
-    return confirmed + candidates[:max_candidates]
-
-
-def load_json(path: Path) -> list[dict]:
-    if not path.exists():
-        return []
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def save_json(path: Path, items: list[dict]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(items, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-
-def load_seen_ids(path: Path) -> dict[str, list[str]]:
-    if not path.exists():
-        return {}
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def save_seen_ids(path: Path, seen_ids: dict[str, list[str]]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(seen_ids, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def existing_ids(*item_lists: list[dict], source: str) -> set[str]:
@@ -160,6 +130,8 @@ def main() -> None:
                 {
                     "id": f"{candidate['source_id']}-pilgrimage",
                     "status": "candidate",
+                    "origin": "official",
+                    "origin_label": "公式サイト/YouTube",
                     "name_ja": pilgrimage.get("name_ja"),
                     "description": pilgrimage.get("description") or "",
                     "address": pilgrimage.get("address"),
@@ -175,6 +147,8 @@ def main() -> None:
                 {
                     "id": f"{candidate['source_id']}-fashion-{idx}",
                     "status": "candidate",
+                    "origin": "official",
+                    "origin_label": "公式サイト/YouTube",
                     "item_name": fashion_item.get("item_name"),
                     "brand": fashion_item.get("brand"),
                     "member": fashion_item.get("member"),
@@ -210,14 +184,11 @@ def main() -> None:
     pilgrimage_items = trim_candidates(pilgrimage_items, MAX_CANDIDATE_ITEMS)
     fashion_items = trim_candidates(fashion_items, MAX_CANDIDATE_ITEMS)
 
-    for source in seen_ids:
-        seen_ids[source] = seen_ids[source][-MAX_SEEN_IDS_PER_SOURCE:]
-
     save_json(NEWS_PATH, news_items)
     save_json(SCHEDULE_PATH, schedule_items)
     save_json(PILGRIMAGE_PATH, pilgrimage_items)
     save_json(FASHION_PATH, fashion_items)
-    save_seen_ids(SEEN_IDS_PATH, seen_ids)
+    save_seen_ids(SEEN_IDS_PATH, seen_ids, max_per_source=MAX_SEEN_IDS_PER_SOURCE)
 
     logger.info(
         "収集完了: 新規news=%s件, 新規schedule=%s件(誕生日/記念日%s件含む, 保存件数 news=%s, schedule=%s, "

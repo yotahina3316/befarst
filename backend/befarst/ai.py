@@ -143,6 +143,76 @@ EXTRAS_PROMPT_TEMPLATE = """あなたはBE:FIRSTのファン向け情報整理�
 """
 
 
+WEB_EXTRAS_PROMPT_TEMPLATE = """あなたはBE:FIRSTのファン向け情報整理アシスタントです。
+以下はWeb検索/YouTube検索で見つかったファン投稿のページ本文です(公式情報ではありません)。
+ここから次の2種類の情報を抽出してください。該当が無い場合はどちらも空配列にしてください。
+本文に明記されている場合のみ抽出し、推測や一般論での補完はしないでください。説明文は不要で、
+指定のJSON形式のみを出力してください。
+
+# 検索クエリ: {query}
+# ページタイトル: {title}
+# 本文(抜粋): {content}
+
+# タスク
+1. pilgrimage_spots: BE:FIRSTのメンバーやグループに関連する具体的な「場所」(ロケ地、聖地巡礼スポットになりうる場所。例: 撮影が行われた店舗・施設、出演した会場、関連するカフェやショップ、出身地など)への具体的な言及があれば、複数でもすべて抽出してください。「東京で」のような曖昧な地名のみの言及は対象外です。
+2. fashion_items: メンバーが着用した服・アクセサリーへの具体的な言及(ブランド名やアイテム名が本文から分かるもの)があれば、複数抽出してください。
+
+# 出力形式(このJSONのみを出力)
+{{
+  "pilgrimage_spots": [
+    {{"name_ja": "場所の名称", "description": "説明(1〜2文)", "address": "住所が分かれば、無ければnull"}}
+  ],
+  "fashion_items": [
+    {{"item_name": "アイテム名", "brand": "ブランド名。分からなければnull", "member": "着用メンバー名。分からなければnull", "category": "clothing または accessory", "description": "説明(1文程度)"}}
+  ]
+}}
+"""
+
+
+def extract_web_extras(query: str, title: str, content: str) -> dict:
+    """Web検索/YouTube検索で見つかった非公式ページ1件から、聖地巡礼・BE:Fashionの候補を
+    複数抽出する(ベストエフォート)。extract_extras()と異なり、まとめ記事等を想定して
+    pilgrimageは複数抽出できる形にしている。失敗時や該当が無い場合は両方空で返す。
+    """
+    fallback = {"pilgrimage_spots": [], "fashion_items": []}
+
+    if not settings.anthropic_api_key:
+        return fallback
+
+    prompt = WEB_EXTRAS_PROMPT_TEMPLATE.format(query=query, title=title, content=(content or "")[:3000])
+
+    try:
+        client = _get_client()
+        response = client.messages.create(
+            model="claude-sonnet-5",
+            max_tokens=1536,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text_block = next(block for block in response.content if block.type == "text")
+        text = text_block.text.strip()
+        if text.startswith("```"):
+            text = text.strip("`")
+            text = text.split("\n", 1)[1] if "\n" in text else text
+            if text.lower().startswith("json"):
+                text = text[4:]
+        result = json.loads(text)
+
+        pilgrimage_spots = result.get("pilgrimage_spots")
+        if not isinstance(pilgrimage_spots, list):
+            pilgrimage_spots = []
+        pilgrimage_spots = [p for p in pilgrimage_spots if isinstance(p, dict) and p.get("name_ja")]
+
+        fashion_items = result.get("fashion_items")
+        if not isinstance(fashion_items, list):
+            fashion_items = []
+        fashion_items = [f for f in fashion_items if isinstance(f, dict) and f.get("item_name")]
+
+        return {"pilgrimage_spots": pilgrimage_spots, "fashion_items": fashion_items}
+    except Exception:
+        logger.exception("Web検索由来の聖地巡礼/BE:Fashion抽出に失敗しました。スキップします。")
+        return fallback
+
+
 def extract_extras(title: str, content: str) -> dict:
     """記事1件から聖地巡礼・BE:Fashionの候補情報をAIで抽出する(ベストエフォート)。
 

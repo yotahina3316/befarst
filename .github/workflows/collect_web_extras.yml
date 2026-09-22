@@ -1,0 +1,39 @@
+name: Collect BE:FIRST location/fashion leads from web & YouTube search
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # 毎日12:00 JST(UTC+9)に1回。Google/YouTube検索の無料枠を使い切らないよう低頻度にしている
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  collect-web-extras:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Run web/YouTube search collection
+        working-directory: backend
+        run: python collect_web_extras.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
+          GOOGLE_SEARCH_ENGINE_ID: ${{ secrets.GOOGLE_SEARCH_ENGINE_ID }}
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/pilgrimage.json docs/data/fashion.json data/seen_ids.json
+          git diff --staged --quiet || git commit -m "chore: update pilgrimage/fashion leads from web & YouTube search"
+          git push
