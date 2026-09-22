@@ -15,6 +15,12 @@ BE:FIRST関連の情報を集約・分類・翻訳・要約して届ける、**�
 - **Phase 1(完成)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
 - **Phase 2(着手済み、2026-09-21〜)**: `MEMBER`別ページ、`聖地巡礼`、`BE:Fashion`を実装済み(下記参照)。残りのHOME、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応は未着手(企画書に記載のみ)。
 
+### タブ名称変更(聖地巡礼→ロケ地、BE:Fashion→Fashion)+ アプリアイコン変更(2026-09-23実装、ユーザー指示)
+
+- `docs/index.html`のタブボタン表示文言のみ変更(`data-tab`属性の値・`docs/js/app.js`・`docs/data/pilgrimage.json`/`fashion.json`のファイル名や内部のフィールド名(`pilgrimage`/`fashion`)は変更していない。表示上のラベルのみの変更のため)。
+- アプリアイコン(`docs/icons/icon-192.png`/`icon-512.png`)を、従来の仮アイコン(背景色`#0B0B0F`にArial Bold白文字で"BE")と同じスタイルのまま、文字だけ"BF"に差し替えた(Pillowで生成、フォントは`C:\Windows\Fonts\arialbd.ttf`)。まだ仮アイコンである点は変わらないため、正式なアイコン素材ができた場合は改めて差し替えること。
+  - **注意**: iPhoneのホーム画面アイコンは「ホーム画面に追加」した時点の画像がOS側に保存される仕様のため、Service Workerのキャッシュを更新しても自動では切り替わらない。ホーム画面上のアイコンを新しい"BF"に変えるには、一度ホーム画面から既存のアイコンを削除し、Safariで再度「ホーム画面に追加」をやり直す必要がある。
+
 ### Push通知の重複配信バグ修正 + 誕生日のカレンダー表示改善(2026-09-23実装、ユーザー指摘)
 
 - **不具合1: 同じ内容のPush通知が30分おきに繰り返し届く**。原因はGitHub Actionsの実行ログ(`gh run view <id> --log`)を遡って特定した: 公式サイトの新着記事が「開催日はすでにSCHEDULE_PAST_DAYS(3日)より前」とAI判定された場合、その記事は`schedule_items`に一度追加されたのち、保存直前のカットオフ処理で即座に除外されていた。この記事のsource_idはnews.json/schedule.jsonのどちらにも保存されないため、次回実行時にもまだ「未処理」として扱われ、公式サイトAPIから再取得→AI再分類→`notify_all()`が再度呼ばれる、というサイクルが記事が十分古くなる(=次回取得時に他の新着記事に押し出される)まで無限に繰り返されていた(実例: 2026-09-18公開の「WATCH ME Listening Party」記事が2026-09-22 15:39〜22:39 UTCの間、ほぼ全実行で「新規schedule=1件」と判定され続けていたが、実際のcommitは1回も発生していなかったことを`gh run list`/`gh run view`のログとgit historyの突き合わせで確認した)。
