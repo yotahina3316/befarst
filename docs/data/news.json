@@ -138,6 +138,26 @@
   },
   {
     "source": "youtube",
+    "source_id": "1yhYalgwUss",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / WATCH ME  feat. BIA -Teaser #3-",
+    "title_ja": "BE:FIRST / WATCH ME  feat. BIA -Teaser #3-",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/1yhYalgwUss/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=1yhYalgwUss",
+    "published_at": "2026-09-15T00:00:09"
+  },
+  {
+    "source": "youtube",
     "source_id": "w7Tsk7z_mhE",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
