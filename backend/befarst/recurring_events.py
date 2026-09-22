@@ -26,15 +26,23 @@ ANNIVERSARIES: list[tuple[str, str, int, int]] = [
 
 
 def _occurrences(month: int, day: int, today: date) -> list[date]:
-    """当年と翌年、両方の日付を返す。
+    """当年の日付(過ぎていても)と、当年分がすでに過ぎている場合のみ翌年の日付も返す。
 
     「今後の直近1件」だけを返すと、すでに今年の誕生日を迎えたメンバーの分は
     来年の日付にしか存在しなくなり、カレンダーを開いても(半年〜1年先まで
     ページをめくらない限り)誕生日が一切表示されない状態になっていた
-    (2026-09-23発覚)。当年分も常に生成しておくことで、今年すでに過ぎた日付
-    も含めてカレンダー上のその月を開けば表示されるようにする。
+    (2026-09-23発覚)。一方で、当年・翌年を無条件に両方返すと、当年分がまだ
+    来ていないメンバー(例: 11月生まれの場合、9月時点では当年の誕生日はまだ
+    「今後の予定」)については当年・翌年の両方が同時に「未来の予定」として
+    該当してしまい、MEMBERページの予定一覧やSCHEDULEカレンダーに同じ予定が
+    2件(今年分・来年分)重複して表示される不具合が発生した(2026-09-23、
+    デビュー記念日が2件表示される形で発覚)。翌年分は当年分がすでに過ぎて
+    いる場合にのみ追加することで、「今後の予定」は常に1件だけになるようにする。
     """
-    return [date(today.year, month, day), date(today.year + 1, month, day)]
+    this_year = date(today.year, month, day)
+    if this_year < today:
+        return [this_year, date(today.year + 1, month, day)]
+    return [this_year]
 
 
 def _build_item(
@@ -58,7 +66,9 @@ def _build_item(
         "confidence": "OFFICIAL",
         "title_original": title,
         "title_ja": title,
-        "summary_ja": f"{title}です。",
+        # カード上に月日が出ないと「誕生日」とだけ表示されて本人の誕生日がいつなのか
+        # 分からない、という指摘(2026-09-23)があったため、要約文に日付を明記する。
+        "summary_ja": f"{occurrence.month}月{occurrence.day}日です。",
         "image_url": image_url,
         "members": members,
         "url": "https://befirst.tokyo/",

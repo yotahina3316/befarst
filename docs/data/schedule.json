@@ -7,7 +7,7 @@
     "confidence": "OFFICIAL",
     "title_original": "SOTA 誕生日",
     "title_ja": "SOTA 誕生日",
-    "summary_ja": "SOTA 誕生日です。",
+    "summary_ja": "1月18日です。",
     "image_url": "./images/members/sota.webp",
     "members": [
       "SOTA"
@@ -24,7 +24,7 @@
     "confidence": "OFFICIAL",
     "title_original": "MANATO 誕生日",
     "title_ja": "MANATO 誕生日",
-    "summary_ja": "MANATO 誕生日です。",
+    "summary_ja": "4月29日です。",
     "image_url": "./images/members/manato.webp",
     "members": [
       "MANATO"
@@ -41,7 +41,7 @@
     "confidence": "OFFICIAL",
     "title_original": "JUNON 誕生日",
     "title_ja": "JUNON 誕生日",
-    "summary_ja": "JUNON 誕生日です。",
+    "summary_ja": "5月23日です。",
     "image_url": "./images/members/junon.webp",
     "members": [
       "JUNON"
@@ -58,7 +58,7 @@
     "confidence": "OFFICIAL",
     "title_original": "SHUNTO 誕生日",
     "title_ja": "SHUNTO 誕生日",
-    "summary_ja": "SHUNTO 誕生日です。",
+    "summary_ja": "9月1日です。",
     "image_url": "./images/members/shunto.webp",
     "members": [
       "SHUNTO"
@@ -75,7 +75,7 @@
     "confidence": "OFFICIAL",
     "title_original": "LEO 誕生日",
     "title_ja": "LEO 誕生日",
-    "summary_ja": "LEO 誕生日です。",
+    "summary_ja": "9月8日です。",
     "image_url": "./images/members/leo.webp",
     "members": [
       "LEO"
@@ -167,7 +167,7 @@
     "confidence": "OFFICIAL",
     "title_original": "BE:FIRST デビュー記念日",
     "title_ja": "BE:FIRST デビュー記念日",
-    "summary_ja": "BE:FIRST デビュー記念日です。",
+    "summary_ja": "11月3日です。",
     "image_url": null,
     "members": [
       "SOTA",
@@ -189,7 +189,7 @@
     "confidence": "OFFICIAL",
     "title_original": "RYUHEI Birthday",
     "title_ja": "RYUHEI 誕生日",
-    "summary_ja": "RYUHEIの誕生日です。",
+    "summary_ja": "11月7日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
     "event_date": "2026-11-07",
@@ -221,7 +221,7 @@
     "confidence": "OFFICIAL",
     "title_original": "SOTA Birthday",
     "title_ja": "SOTA 誕生日",
-    "summary_ja": "SOTAの誕生日です。",
+    "summary_ja": "1月18日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
     "event_date": "2027-01-18",
@@ -253,7 +253,7 @@
     "confidence": "OFFICIAL",
     "title_original": "MANATO Birthday",
     "title_ja": "MANATO 誕生日",
-    "summary_ja": "MANATOの誕生日です。",
+    "summary_ja": "4月29日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
     "event_date": "2027-04-29",
@@ -270,7 +270,7 @@
     "confidence": "OFFICIAL",
     "title_original": "JUNON Birthday",
     "title_ja": "JUNON 誕生日",
-    "summary_ja": "JUNONの誕生日です。",
+    "summary_ja": "5月23日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
     "event_date": "2027-05-23",
@@ -287,7 +287,7 @@
     "confidence": "OFFICIAL",
     "title_original": "SHUNTO Birthday",
     "title_ja": "SHUNTO 誕生日",
-    "summary_ja": "SHUNTOの誕生日です。",
+    "summary_ja": "9月1日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
     "event_date": "2027-09-01",
@@ -304,7 +304,7 @@
     "confidence": "OFFICIAL",
     "title_original": "LEO Birthday",
     "title_ja": "LEO 誕生日",
-    "summary_ja": "LEOの誕生日です。",
+    "summary_ja": "9月8日です。",
     "url": "https://befirst.tokyo/",
     "published_at": "2026-09-21T10:49:36.143936",
     "event_date": "2027-09-08",
@@ -312,44 +312,5 @@
     "members": [
       "LEO"
     ]
-  },
-  {
-    "source": "anniversary",
-    "source_id": "debut-2027",
-    "source_category": "ANNIVERSARY",
-    "schedule_category": "ANNIVERSARY",
-    "confidence": "OFFICIAL",
-    "title_original": "BE:FIRST デビュー記念日",
-    "title_ja": "BE:FIRST デビュー記念日",
-    "summary_ja": "BE:FIRST デビュー記念日です。",
-    "image_url": null,
-    "members": [
-      "SOTA",
-      "MANATO",
-      "JUNON",
-      "SHUNTO",
-      "LEO",
-      "RYUHEI"
-    ],
-    "url": "https://befirst.tokyo/",
-    "published_at": "2026-09-22T23:09:20.381670",
-    "event_date": "2027-11-03"
-  },
-  {
-    "source": "birthday",
-    "source_id": "RYUHEI-2027",
-    "source_category": "BIRTHDAY",
-    "schedule_category": "BIRTHDAY",
-    "confidence": "OFFICIAL",
-    "title_original": "RYUHEI 誕生日",
-    "title_ja": "RYUHEI 誕生日",
-    "summary_ja": "RYUHEI 誕生日です。",
-    "image_url": "./images/members/ryuhei.webp",
-    "members": [
-      "RYUHEI"
-    ],
-    "url": "https://befirst.tokyo/",
-    "published_at": "2026-09-22T23:09:20.381670",
-    "event_date": "2027-11-07"
   }
 ]
