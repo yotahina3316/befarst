@@ -19,9 +19,9 @@ MEMBERS: list[tuple[str, int, int]] = [
     ("RYUHEI", 11, 7),
 ]
 
-# (タイトル, 月, 日) — グループの記念日。2021年11月3日にメジャーデビュー(デビュー曲「Gifted.」)
-ANNIVERSARIES: list[tuple[str, int, int]] = [
-    ("BE:FIRST デビュー記念日", 11, 3),
+# (安定キー, タイトル, 月, 日) — グループの記念日。2021年11月3日にメジャーデビュー(デビュー曲「Gifted.」)
+ANNIVERSARIES: list[tuple[str, str, int, int]] = [
+    ("debut", "BE:FIRST デビュー記念日", 11, 3),
 ]
 
 
@@ -34,15 +34,20 @@ def _next_occurrence(month: int, day: int, today: date) -> date:
 
 def _build_item(
     source_prefix: str,
+    key: str,
     title: str,
     occurrence: date,
     schedule_category: str,
     members: list[str],
     image_url: str | None,
 ) -> dict:
+    # source_idは表示文言(title)ではなく安定した`key`から生成する。過去にtitleの
+    # 文言(英語"Birthday"→日本語"誕生日"など)を変えた際、source_idもtitleに連動して
+    # 変わってしまい、同じ誕生日/記念日が毎回「新規」と誤判定され続ける不具合が発生した
+    # (2026-09-21〜22)。以後、表示文言はいつでも変更できるが`key`は変えないこと。
     return {
         "source": source_prefix,
-        "source_id": f"{title}-{occurrence.year}",
+        "source_id": f"{key}-{occurrence.year}",
         "source_category": schedule_category,
         "schedule_category": schedule_category,
         "confidence": "OFFICIAL",
@@ -65,14 +70,14 @@ def upcoming_recurring_events(existing_source_ids: set[str]) -> list[dict]:
     for name, month, day in MEMBERS:
         occurrence = _next_occurrence(month, day, today)
         image_url = f"./images/members/{name.lower()}.webp"
-        item = _build_item("birthday", f"{name} 誕生日", occurrence, "BIRTHDAY", [name], image_url)
+        item = _build_item("birthday", name, f"{name} 誕生日", occurrence, "BIRTHDAY", [name], image_url)
         if item["source_id"] not in existing_source_ids:
             items.append(item)
 
-    for title, month, day in ANNIVERSARIES:
+    for key, title, month, day in ANNIVERSARIES:
         occurrence = _next_occurrence(month, day, today)
         # グループ全体の記念日なので、全メンバーのページに表示されるようタグ付けする
-        item = _build_item("anniversary", title, occurrence, "ANNIVERSARY", list(MEMBER_NAMES), None)
+        item = _build_item("anniversary", key, title, occurrence, "ANNIVERSARY", list(MEMBER_NAMES), None)
         if item["source_id"] not in existing_source_ids:
             items.append(item)
 
