@@ -15,21 +15,18 @@ BE:FIRST関連の情報を集約・分類・翻訳・要約して届ける、**�
 - **Phase 1(完成)**: `SCHEDULE`(統合カレンダー) + `NEWS`(ニュース集約)
 - **Phase 2(着手済み、2026-09-21〜)**: `MEMBER`別ページ、`聖地巡礼`、`BE:Fashion`を実装済み(下記参照)。残りのHOME、SOCIAL(SNS集約)、LIVE & TICKET詳細、GOODS、MUSIC/VIDEO、MY BESTY、AI BESTY、多言語対応は未着手(企画書に記載のみ)。
 
-### ロケ地/Fashion情報をWeb検索・YouTube検索からも収集(2026-09-23実装、ユーザー指示)
+### ロケ地/Fashion情報をYouTube検索からも収集(2026-09-23実装、ユーザー指示)
 
-- **背景**: 公式サイト記事・公式YouTube概要欄にはロケ地・着用アイテムの具体的な言及がほとんど無いため、`docs/data/pilgrimage.json`・`fashion.json`が実質空のままだった(ユーザー指摘)。「ネットで『BE:FIRST ロケ地』と検索すれば情報は無数に出てくる」ため、ファンブログ等のWeb検索結果、およびYouTubeのファン投稿動画も情報源に加えることにした。
-- **SNS(X/Instagram等)は対象外**: Xは検索APIが実質有料化されており(月$100〜)、Instagramには外部から公開投稿を検索できる一般公開APIが無いため、個人開発の無料枠では収集手段が無い。スクレイピングは規約違反・不安定さの両面で見送った。ユーザーにもこの制約を説明し、Google検索(Web全体)+ YouTube検索の2本立てで進めることの了承を得た。
-- **新しいスクリプト`backend/collect_web_extras.py`**: `collect.py`(news/schedule、30分おき)とは別のエントリーポイント・別スケジュール(1日1回、GitHub Actionsの`collect_web_extras.yml`、cron `0 3 * * *` = JST 12:00)で実行する。理由: 使用するGoogle Custom Search API(無料枠1日100クエリ)・YouTube Data API v3(無料枠1日1万ユニット、検索1回100ユニット)はどちらも30分おきの実行には向かない低いクエリ上限のため。
-  - `backend/befarst/collectors/web_search.py`: Google Custom Search APIで「BE:FIRST ロケ地」「BE:FIRST 聖地巡礼」「BE:FIRST 私服 ブランド」を検索し、未処理のURLについてページ本文の取得を試みる(失敗時は検索結果のsnippetで代用)。
+- **背景**: 公式サイト記事・公式YouTube概要欄にはロケ地・着用アイテムの具体的な言及がほとんど無いため、`docs/data/pilgrimage.json`・`fashion.json`が実質空のままだった(ユーザー指摘)。「ネットで『BE:FIRST ロケ地』と検索すれば情報は無数に出てくる」ため、ファンブログ等のWeb検索結果、およびYouTubeのファン投稿動画も情報源に加えることを試みた。
+- **SNS(X/Instagram等)は対象外**: Xは検索APIが実質有料化されており(月$100〜)、Instagramには外部から公開投稿を検索できる一般公開APIが無いため、個人開発の無料枠では収集手段が無い。スクレイピングは規約違反・不安定さの両面で見送った。
+- **Google Custom Search API(Web全体のファンブログ検索)は導入を断念した(2026-09-23)**: 当初、Google Custom Search APIでファンブログ等をWeb検索する`backend/befarst/collectors/web_search.py`を実装し、ユーザーにGoogle Cloud Consoleでのプロジェクト作成・API有効化・APIキー発行・Programmable Search Engine作成まで一通り作業してもらったが、実行すると常に`403 "This project does not have the access to Custom Search JSON API."`エラーになった。プロジェクトへの請求先アカウント登録、APIキーの「APIの制限」への`Custom Search API`の追加など考えられる原因を一つずつ切り分けたが解消せず、最終的にWeb検索で調査した結果、**Google Custom Search JSON APIは2025年に新規顧客への提供を終了しており、新しく作成したGoogle Cloudプロジェクトではどう設定しても使えない**(既存顧客も2027-01-01に全面終了予定)ことが判明した。今回のプロジェクトはこの実装のために新規作成したものだったため、原理的に不可能だった。ユーザーと相談の上、`backend/befarst/collectors/web_search.py`は削除し、有料のSERP API(SerpApi等)への切り替えも見送って、**YouTube検索のみで運用する方針**にした。GitHub Secretsの`GOOGLE_SEARCH_API_KEY`・`GOOGLE_SEARCH_ENGINE_ID`も削除済み。「ウェブ全体を検索」機能自体もGoogle側で新規検索エンジンでは廃止されていた(Programmable Search Engineの「結果を追加」→「ウェブ全体を検索」トグルが「この機能は非推奨になったため、有効にできなくなりました」と表示された)ため、仮にAPI自体は使えていたとしても主要ブログ/SNSドメインをワイルドカードで指定する形にする必要があった。
+- **新しいスクリプト`backend/collect_web_extras.py`**: `collect.py`(news/schedule、30分おき)とは別のエントリーポイント・別スケジュール(1日1回、GitHub Actionsの`collect_web_extras.yml`、cron `0 3 * * *` = JST 12:00)で実行する。理由: 使用するYouTube Data API v3(無料枠1日1万ユニット、検索1回100ユニット)は30分おきの実行には向かない低いクエリ上限のため。
   - `backend/befarst/collectors/youtube_search.py`: YouTube Data API v3の`search.list`(全チャンネル横断のキーワード検索、公式チャンネルのRSSを見る`youtube.py`とは別物)で「BE:FIRST ロケ地」等を検索し、動画のタイトル・概要欄を対象にする。
-  - `backend/befarst/ai.py`の`extract_web_extras()`: 既存の`extract_extras()`(公式記事1件からロケ地を最大1件抽出)とは別に、まとめ記事等を想定してロケ地を複数抽出できるプロンプトを用意した。
-  - dedup(二度と同じURL/動画を処理しない)は`collect.py`と同じ`data/seen_ids.json`を共有し、`"web_search"`/`"youtube_search"`というキーで記録する(`"official_news"`/`"youtube"`とは別キーなので競合しない)。
-- **非公式ソースである旨の表示**: Web検索/YouTube検索由来の候補には`origin`(`"web_search"`/`"youtube_search"`、公式記事由来は`"official"`)と`origin_label`(画面表示用の文言)を付与し、フロント(`docs/js/app.js`の`originBadgeHTML()`)が既存の「AI候補/確認済み」バッジとは別に「Web検索」「YouTube検索」という枠線バッジ(`.badge.origin-unofficial`)を表示する。ファン投稿は誤情報・過度な断定を含みうるため、確認済み(`status: "confirmed"`)にする手動キュレーションの重要性は公式ソース由来のとき以上に高い。
-- **必要なAPIキーのセットアップ(ユーザー側の作業が必要)**:
-  1. [Google Cloud Console](https://console.cloud.google.com/)でプロジェクトを作成(または既存のものを利用)し、「APIとサービス」→「ライブラリ」で **Custom Search API** と **YouTube Data API v3** の両方を有効化する。
-  2. 「認証情報」→「認証情報を作成」→「APIキー」でAPIキーを1つ発行する(上記2つのAPIを同じキーで使い回せる。制限をかける場合は両APIを許可すること)。
-  3. [Programmable Search Engine 管理画面](https://programmablesearchengine.google.com/controlpanel/create)で新しい検索エンジンを作成し、「検索するサイト」を特定サイトではなく**「ウェブ全体を検索」**に設定した上で、発行された検索エンジンID(cx)を控える。
-  4. 発行したAPIキー・検索エンジンIDを、GitHub Secretsに`GOOGLE_SEARCH_API_KEY`・`GOOGLE_SEARCH_ENGINE_ID`・`YOUTUBE_DATA_API_KEY`として登録する(`gh secret set`、これまでの`ANTHROPIC_API_KEY`等と同じ要領)。未設定の間は`collect_web_extras.py`が該当の収集だけを自動でスキップする(エラーにはならない)。
+  - `backend/befarst/ai.py`の`extract_web_extras()`: 既存の`extract_extras()`(公式記事1件からロケ地を最大1件抽出)とは別に、まとめ記事等を想定してロケ地を複数抽出できるプロンプトを用意した(web_search.py削除後もyoutube_search.py用に使用継続)。
+  - dedup(二度と同じ動画を処理しない)は`collect.py`と同じ`data/seen_ids.json`を共有し、`"youtube_search"`というキーで記録する(`"official_news"`/`"youtube"`とは別キーなので競合しない)。
+  - 初回実行(2026-09-23)で実際にロケ地候補17件・Fashion候補12件を取得できている。
+- **非公式ソースである旨の表示**: YouTube検索由来の候補には`origin: "youtube_search"`(公式記事由来は`"official"`)と`origin_label`(画面表示用の文言)を付与し、フロント(`docs/js/app.js`の`originBadgeHTML()`)が既存の「AI候補/確認済み」バッジとは別に「YouTube検索」という枠線バッジ(`.badge.origin-unofficial`)を表示する。ファン投稿は誤情報・過度な断定を含みうるため、確認済み(`status: "confirmed"`)にする手動キュレーションの重要性は公式ソース由来のとき以上に高い。
+- **必要なAPIキーのセットアップ**: [Google Cloud Console](https://console.cloud.google.com/)でプロジェクトを作成し「YouTube Data API v3」を有効化、「認証情報」からAPIキーを発行、GitHub Secretsに`YOUTUBE_DATA_API_KEY`として登録する(`gh secret set`)。未設定の間は`collect_web_extras.py`が収集をスキップする(エラーにはならない)。
 
 ### タブ名称変更(聖地巡礼→ロケ地、BE:Fashion→Fashion)+ アプリアイコン変更(2026-09-23実装、ユーザー指示)
 
@@ -114,7 +111,6 @@ befarst/
 │       └── collectors/
 │           ├── official_news.py  BE:FIRST公式サイトのWordPress REST APIから収集
 │           ├── youtube.py        BE:FIRST公式YouTubeチャンネルのRSSから収集
-│           ├── web_search.py     Google Custom Search APIでロケ地/Fashion関連のWebページを検索
 │           └── youtube_search.py YouTube Data API v3でロケ地/Fashion関連のファン投稿動画を検索
 ├── data/
 │   ├── README.md
