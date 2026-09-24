@@ -1,5 +1,18 @@
 [
   {
+    "id": "7110-pilgrimage",
+    "status": "candidate",
+    "origin": "official",
+    "origin_label": "公式サイト/YouTube",
+    "name_ja": "日本武道館",
+    "description": "「UVERworld vs BE:FIRST」が開催される会場。",
+    "address": null,
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/09/messageImage_1790134117300.webp",
+    "source_url": "https://befirst.tokyo/news/261226_uverworld/",
+    "members": [],
+    "created_at": "2026-09-24T12:15:15.427732"
+  },
+  {
     "id": "youtube_search-epIdXPwgwkA-pilgrimage-0",
     "status": "candidate",
     "origin": "youtube_search",

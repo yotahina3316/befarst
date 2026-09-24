@@ -200,6 +200,21 @@
   },
   {
     "source": "official_news",
+    "source_id": "7110",
+    "source_category": "NEWS/LIVE",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/12/26(土)UVERworld VS シリーズ「UVERworld vs BE:FIRST」BE:FIRST 出演",
+    "title_ja": "2026年12月26日(土) UVERworld VSシリーズ「UVERworld vs BE:FIRST」BE:FIRST出演",
+    "summary_ja": "UVERworldのVSシリーズ企画「UVERworld vs BE:FIRST」が12月26日(土)に日本武道館にて開催され、BE:FIRSTの出演が決定した。詳細はUVERworld公式サイトのニュースページに掲載されている。",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/09/messageImage_1790134117300.webp",
+    "members": [],
+    "url": "https://befirst.tokyo/news/261226_uverworld/",
+    "published_at": "2026-09-24T12:10:13",
+    "event_date": "2026-12-26",
+    "schedule_category": "LIVE"
+  },
+  {
+    "source": "official_news",
     "source_id": "6584",
     "source_category": "LIVE",
     "confidence": "OFFICIAL",
