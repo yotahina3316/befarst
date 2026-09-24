@@ -1,6 +1,26 @@
 [
   {
     "source": "youtube",
+    "source_id": "eWIdrVwpSgk",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / WATCH ME  feat. BIA -Behind The Scenes Teaser-",
+    "title_ja": "BE:FIRST「WATCH ME feat. BIA」-Behind The Scenes Teaser-",
+    "summary_ja": "BE:FIRSTが2026年9月18日にGlobal EP「WATCH ME」よりBIAをフィーチャーした楽曲を配信リリースしたことに関連し、その振付動画のメイキング映像「Behind The Scenes Teaser」のクレジット情報を公開。カメラ・編集はTakahiro Tsuboi氏(hof Inc.)が担当している。",
+    "image_url": "https://i2.ytimg.com/vi/eWIdrVwpSgk/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=eWIdrVwpSgk",
+    "published_at": "2026-09-24T03:30:25"
+  },
+  {
+    "source": "youtube",
     "source_id": "qYsv3diZir0",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
