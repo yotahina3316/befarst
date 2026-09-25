@@ -1,6 +1,26 @@
 [
   {
     "source": "youtube",
+    "source_id": "AASIsiV4WTo",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / DEAD EYES EVERYWHERE feat. ATL Jacob -Teaser-",
+    "title_ja": "BE:FIRST / DEAD EYES EVERYWHERE feat. ATL Jacob -Teaser-",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/AASIsiV4WTo/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=AASIsiV4WTo",
+    "published_at": "2026-09-25T15:00:28"
+  },
+  {
+    "source": "youtube",
     "source_id": "INPL2HuO3rc",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
