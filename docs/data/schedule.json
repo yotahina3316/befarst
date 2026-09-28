@@ -86,21 +86,6 @@
   },
   {
     "source": "official_news",
-    "source_id": "6570",
-    "source_category": "LIVE",
-    "confidence": "OFFICIAL",
-    "title_original": "世界4都市を回るワールドショーケース『BE:FIRST WORLD SHOWCASE 2026』開催決定",
-    "title_ja": "世界4都市を回るワールドショーケース『BE:FIRST WORLD SHOWCASE 2026』開催決定",
-    "summary_ja": "BE:FIRSTが世界4都市を巡るショーケースライブ『BE:FIRST WORLD SHOWCASE 2026』の開催が決定しました。バンコク(9/25)、台北(9/27)、マニラ(10/3)、ニューヨーク(10/23)の順で開催され、チケット先行等の詳細は後日発表されます。",
-    "url": "https://befirst.tokyo/live/global2026-showcase/",
-    "published_at": "2026-05-17T09:30:49",
-    "event_date": "2026-09-25",
-    "schedule_category": "LIVE",
-    "image_url": null,
-    "members": []
-  },
-  {
-    "source": "official_news",
     "source_id": "6898",
     "source_category": "DVD_BD",
     "confidence": "OFFICIAL",
