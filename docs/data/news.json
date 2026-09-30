@@ -1,6 +1,32 @@
 [
   {
     "source": "youtube",
+    "source_id": "hPC9pbFuxTo",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "海外デビュードキュメンタリー（仮）撮影中。#BF_WATCHME #BEFIRST",
+    "title_ja": "海外デビュードキュメンタリー(仮)撮影中",
+    "summary_ja": "BE:FIRSTの海外デビューを追ったドキュメンタリー(仮題)の撮影が進行中であることが発表されました。具体的な公開日程などの詳細は本文からは確認できません。",
+    "image_url": "https://i1.ytimg.com/vi/hPC9pbFuxTo/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/hPC9pbFuxTo",
+    "published_at": "2026-09-30T02:02:05"
+  },
+  {
+    "source": "youtube",
+    "source_id": "ScRBhHtAVIg",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 海外ドキュメンタリー（仮） Teaser",
+    "title_ja": "BE:FIRST 海外ドキュメンタリー(仮) ティザー映像",
+    "summary_ja": "BE:FIRSTの初のグローバルEP『WATCH ME』が米ビルボードの主要チャートにランクインし、World Albumsでは3位を記録したことが報告されました。BMSG6周年・BE:FIRST5周年を記念し、世界での挑戦の記録を追う海外ドキュメンタリー(仮)を撮影中であることが発表され、詳細は後日公開予定です。",
+    "image_url": "https://i4.ytimg.com/vi/ScRBhHtAVIg/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/watch?v=ScRBhHtAVIg",
+    "published_at": "2026-09-30T01:30:34"
+  },
+  {
+    "source": "youtube",
     "source_id": "QTYSoPrWJj4",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
