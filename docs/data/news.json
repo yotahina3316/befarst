@@ -1,6 +1,26 @@
 [
   {
     "source": "youtube",
+    "source_id": "RVcZLGkEihI",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / BRUCE WAYNE feat. Flo Milli, ATL Jacob -from TBS系「CDTVライブ！ライブ！」-",
+    "title_ja": "BE:FIRST「BRUCE WAYNE feat. Flo Milli, ATL Jacob」-TBS系「CDTVライブ！ライブ！」より-",
+    "summary_ja": "2026年8月31日放送のTBS系「CDTVライブ！ライブ！」で披露された「BRUCE WAYNE feat. Flo Milli, ATL Jacob」のライブ映像が、2026年10月31日23:29まで期間限定で公開されている。本楽曲はBE:FIRST 5th Anniversary Projectの一環としてリリースされたもので、ATL JacobとSKY-HIがプロデュースを手掛けた。",
+    "image_url": "https://i3.ytimg.com/vi/RVcZLGkEihI/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=RVcZLGkEihI",
+    "published_at": "2026-10-03T14:30:05"
+  },
+  {
+    "source": "youtube",
     "source_id": "llHbw-8_SwY",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
