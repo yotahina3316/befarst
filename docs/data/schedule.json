@@ -85,6 +85,28 @@
     "event_date": "2026-09-08"
   },
   {
+    "source": "youtube",
+    "source_id": "A3C8T6FQD1A",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST Stadium Live 2026 We are the “BE:ST” -Viewing Party-",
+    "title_ja": "BE:FIRST Stadium Live 2026 We are the“BE:ST” -Viewing Party-",
+    "summary_ja": "9月30日発売のDVD&Blu-ray『BE:FIRST Stadium Live 2026 We are the“BE:ST”』のリリースを記念し、同日18時からYouTubeで同時視聴会「Viewing Party」が開催されます。参加者は自宅でDVD/Blu-rayを再生しながら、チャットで感想や思い出をシェアして楽しむ形式で、BE:FIRSTの生出演やアーカイブ配信はありません。",
+    "image_url": "https://i2.ytimg.com/vi/A3C8T6FQD1A/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=A3C8T6FQD1A",
+    "published_at": "2026-10-01T09:01:15",
+    "event_date": "2026-09-30T18:00:00",
+    "schedule_category": "STREAM"
+  },
+  {
     "source": "official_news",
     "source_id": "7020",
     "source_category": "MUSIC",
