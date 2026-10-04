@@ -1,6 +1,19 @@
 [
   {
     "source": "youtube",
+    "source_id": "IYJmllpB22I",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "WATCH ME #BEFIRST 📸 #WATCHMEChallenge #BF_WATCHME",
+    "title_ja": "WATCH ME #BEFIRST 📸",
+    "summary_ja": "BE:FIRSTによる「WATCH ME」チャレンジ企画の動画投稿です。具体的な日時やスケジュール情報は本文に含まれていません。",
+    "image_url": "https://i2.ytimg.com/vi/IYJmllpB22I/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/IYJmllpB22I",
+    "published_at": "2026-10-04T04:22:18"
+  },
+  {
+    "source": "youtube",
     "source_id": "RVcZLGkEihI",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
