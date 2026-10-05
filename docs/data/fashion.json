@@ -1,5 +1,19 @@
 [
   {
+    "id": "7123-fashion-0",
+    "status": "candidate",
+    "origin": "official",
+    "origin_label": "公式サイト/YouTube",
+    "item_name": "BE:FIRST AWARD FLIGHT JACKET",
+    "brand": null,
+    "member": null,
+    "category": "clothing",
+    "description": "BE:FIRST 5th Anniversary DOME TOUR 2027の記念に制作されたフライトジャケットライクなアワードブルゾンで、ラグラン仕様や中綿入りが特徴。",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/10/IMG_5720.webp",
+    "source_url": "https://befirst.tokyo/goods/befirst-award-flight-jacket/",
+    "created_at": "2026-10-05T10:15:13.318659"
+  },
+  {
     "id": "youtube_search-bFg5a0R1DXo-fashion-0",
     "status": "candidate",
     "origin": "youtube_search",
