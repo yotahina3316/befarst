@@ -2,7 +2,7 @@ name: Collect BE:FIRST info
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 22 * * *"  # 1日1回、JST 7:00(UTC 22:00)
   workflow_dispatch: {}
 
 permissions:
