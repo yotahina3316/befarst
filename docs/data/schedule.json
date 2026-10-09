@@ -101,6 +101,23 @@
   },
   {
     "source": "official_news",
+    "source_id": "7140",
+    "source_category": "MUSIC",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/10/12(月)先行配信 ‘It’s not a bad life’ キャンペーン",
+    "title_ja": "2026/10/12(月)先行配信「It's not a bad life」キャンペーン",
+    "summary_ja": "アルバム「BE:4U」収録曲「It's not a bad life」が10/12(月)に先行配信され、Apple Music・SpotifyでのPre-Add/Pre-Saveキャンペーンが10/6〜11/2の期間で実施される。参加者には限定コメント動画がプレゼントされ、別途先行配信曲のダウンロードキャンペーンも10/12〜10/18の期間で行われる。アルバム本体は11/3(火)に配信開始予定。",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/10/BF_INBL_配信施策_X.webp",
+    "members": [
+      "JUNON"
+    ],
+    "url": "https://befirst.tokyo/music/its-not-a-bad-life-campaign/",
+    "published_at": "2026-10-09T08:59:56",
+    "event_date": "2026-10-12",
+    "schedule_category": "DIGITAL"
+  },
+  {
+    "source": "official_news",
     "source_id": "7020",
     "source_category": "MUSIC",
     "confidence": "OFFICIAL",
