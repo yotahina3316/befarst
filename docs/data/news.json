@@ -1,6 +1,26 @@
 [
   {
     "source": "youtube",
+    "source_id": "SnXUiCtbE-E",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / It’s not a bad life -Special Movie-",
+    "title_ja": "BE:FIRST / It’s not a bad life -Special Movie-",
+    "summary_ja": "",
+    "image_url": "https://i4.ytimg.com/vi/SnXUiCtbE-E/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=SnXUiCtbE-E",
+    "published_at": "2026-10-11T15:00:08"
+  },
+  {
+    "source": "youtube",
     "source_id": "_wYcCM9bvu8",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
