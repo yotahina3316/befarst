@@ -1,5 +1,44 @@
 [
   {
+    "id": "youtube_search-faIdStMFoE0-pilgrimage-0",
+    "status": "candidate",
+    "origin": "youtube_search",
+    "origin_label": "YouTube検索",
+    "name_ja": "居酒屋 小麦",
+    "description": "BE:FIRST TVでソウタとリョウキが訪れ、富士山ローストビーフ丼を食べた河口湖の居酒屋。",
+    "address": null,
+    "image_url": null,
+    "source_url": "https://www.youtube.com/watch?v=faIdStMFoE0",
+    "members": [],
+    "created_at": "2026-10-14T03:24:39.733928"
+  },
+  {
+    "id": "youtube_search-faIdStMFoE0-pilgrimage-1",
+    "status": "candidate",
+    "origin": "youtube_search",
+    "origin_label": "YouTube検索",
+    "name_ja": "河口浅間神社 天空の鳥居",
+    "description": "BE:FIRST TVでレオとリュウヘイが訪れた、富士山を望める鳥居のある神社。",
+    "address": null,
+    "image_url": null,
+    "source_url": "https://www.youtube.com/watch?v=faIdStMFoE0",
+    "members": [],
+    "created_at": "2026-10-14T03:24:39.733928"
+  },
+  {
+    "id": "youtube_search-OOWf0ICXwgI-pilgrimage-0",
+    "status": "candidate",
+    "origin": "youtube_search",
+    "origin_label": "YouTube検索",
+    "name_ja": "ユニバーサル・スタジオ・ジャパン",
+    "description": "BE:FIRSTが出張スペシャルとして訪れ、『名探偵コナン・ワールド』や『ジュラシックワールド・ラプター・アラート』を楽しんだ場所。",
+    "address": null,
+    "image_url": null,
+    "source_url": "https://www.youtube.com/watch?v=OOWf0ICXwgI",
+    "members": [],
+    "created_at": "2026-10-14T03:24:37.373815"
+  },
+  {
     "id": "youtube_search-VI34XjyzABc-pilgrimage-0",
     "status": "candidate",
     "origin": "youtube_search",
