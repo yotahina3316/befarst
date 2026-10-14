@@ -1,6 +1,52 @@
 [
   {
     "source": "youtube",
+    "source_id": "KWv1fP44MVU",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 'It's not a bad life' -Live from BMSG FES’26- #BE_4U #BF_Itsnotabadlife #BEFIRST",
+    "title_ja": "BE:FIRST「It's not a bad life」-Live from BMSG FES'26-",
+    "summary_ja": "BMSG FES'26で披露されたBE:FIRSTの楽曲「It's not a bad life」のライブ映像が公開されました。本文に詳細情報は記載されていません。",
+    "image_url": "https://i4.ytimg.com/vi/KWv1fP44MVU/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/KWv1fP44MVU",
+    "published_at": "2026-10-14T10:25:37"
+  },
+  {
+    "source": "youtube",
+    "source_id": "4TBra-M7Ih8",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / It’s not a bad life -Live from BMSG FES’26-",
+    "title_ja": "BE:FIRST / It’s not a bad life -Live from BMSG FES’26-",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/4TBra-M7Ih8/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=4TBra-M7Ih8",
+    "published_at": "2026-10-14T10:00:09"
+  },
+  {
+    "source": "youtube",
+    "source_id": "7KG09IP8NnE",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "WATCH ME #AyumuImazu 📸 #WATCHMEChallenge #BF_WATCHME #BEFIRST",
+    "title_ja": "WATCH ME #AyumuImazu",
+    "summary_ja": "今村優夢(Ayumu Imazu)に関する「WATCH ME」動画の投稿です。WATCHMEチャレンジに関連したBE:FIRSTの投稿で、具体的な日程情報は記載されていません。",
+    "image_url": "https://i4.ytimg.com/vi/7KG09IP8NnE/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/7KG09IP8NnE",
+    "published_at": "2026-10-13T12:51:43"
+  },
+  {
+    "source": "youtube",
     "source_id": "SnXUiCtbE-E",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
