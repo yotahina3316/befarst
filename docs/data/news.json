@@ -1,6 +1,45 @@
 [
   {
     "source": "youtube",
+    "source_id": "9kpHayzgb2c",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 'DEAD EYES EVERYWHERE feat. ATL Jacob' #BF_WATCHME #BF_DEADEYESEVERYWHERE  #BEFIRST",
+    "title_ja": "BE:FIRST 'DEAD EYES EVERYWHERE feat. ATL Jacob' #BF_WATCHME #BF_DEADEYESEVERYWHERE  #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/9kpHayzgb2c/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/9kpHayzgb2c",
+    "published_at": "2026-10-19T14:00:24"
+  },
+  {
+    "source": "official_news",
+    "source_id": "7146",
+    "source_category": "TV",
+    "confidence": "OFFICIAL",
+    "title_original": "TBS系「CDTVライブ！ライブ！」2026年11月【マンスリーライブ】BE:FIRST 出演決定",
+    "title_ja": "TBS系「CDTVライブ！ライブ！」2026年11月【マンスリーライブ】BE:FIRST 出演決定",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [],
+    "url": "https://befirst.tokyo/media/tv/cdtv-2026-11/",
+    "published_at": "2026-10-19T12:00:04"
+  },
+  {
+    "source": "youtube",
+    "source_id": "DqLTtrOlqeU",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "Backstreet Boys 'I Want It That Way'｜Respect Cover #BackstreetBoys #82WORLD #82WORLDLA #BEFIRST",
+    "title_ja": "Backstreet Boys 'I Want It That Way'｜Respect Cover #BackstreetBoys #82WORLD #82WORLDLA #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/DqLTtrOlqeU/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/DqLTtrOlqeU",
+    "published_at": "2026-10-19T11:26:26"
+  },
+  {
+    "source": "youtube",
     "source_id": "PhwJjKglrJQ",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
