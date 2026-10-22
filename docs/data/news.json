@@ -1,5 +1,18 @@
 [
   {
+    "source": "official_news",
+    "source_id": "7148",
+    "source_category": "MUSIC",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 4th Album『BE:4U』リリース記念ハッシュタグキャンペーン開催決定",
+    "title_ja": "BE:FIRST 4th Album『BE:4U』リリース記念ハッシュタグキャンペーン開催決定",
+    "summary_ja": "",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/10/DD4C7FF2-0754-4462-A199-548F646B591D.webp",
+    "members": [],
+    "url": "https://befirst.tokyo/music/be4u-hashtagcp/",
+    "published_at": "2026-10-21T08:59:06"
+  },
+  {
     "source": "youtube",
     "source_id": "9kpHayzgb2c",
     "source_category": "VIDEO",
