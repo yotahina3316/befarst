@@ -1,6 +1,105 @@
 [
   {
     "source": "youtube",
+    "source_id": "mj4BYzUv8qE",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "2026.11.03 4th Album『BE:4U』#BE_4U #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "2026.11.03 4th Album『BE:4U』#BE_4U #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/mj4BYzUv8qE/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/mj4BYzUv8qE",
+    "published_at": "2026-10-26T12:36:42"
+  },
+  {
+    "source": "youtube",
+    "source_id": "9cJF5r4ot_A",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / NOW U KNOW -Teaser-",
+    "title_ja": "BE:FIRST / NOW U KNOW -Teaser-",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/9cJF5r4ot_A/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=9cJF5r4ot_A",
+    "published_at": "2026-10-26T11:00:01"
+  },
+  {
+    "source": "youtube",
+    "source_id": "HONAvyYKn4Q",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "Kuchiyose Superman #superman #BEFIRST",
+    "title_ja": "Kuchiyose Superman #superman #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/HONAvyYKn4Q/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/HONAvyYKn4Q",
+    "published_at": "2026-10-26T04:06:37"
+  },
+  {
+    "source": "official_news",
+    "source_id": "7151",
+    "source_category": "RADIO",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/02-11/08 J-WAVE × BE:FIRST COLLABORATION WEEK 2026 決定",
+    "title_ja": "2026/11/02-11/08 J-WAVE × BE:FIRST COLLABORATION WEEK 2026 決定",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://befirst.tokyo/media/radio/2611-jwavexbf/",
+    "published_at": "2026-10-26T02:59:18"
+  },
+  {
+    "source": "youtube",
+    "source_id": "0f2XPmxR8kI",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST WORLD SHOWCASE 2026 ”CAGLIOSTRO” New York #BF_WATCHME #BF_WorldShowcase2026 #BEFIRST",
+    "title_ja": "BE:FIRST WORLD SHOWCASE 2026 ”CAGLIOSTRO” New York #BF_WATCHME #BF_WorldShowcase2026 #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/0f2XPmxR8kI/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/0f2XPmxR8kI",
+    "published_at": "2026-10-25T13:42:07"
+  },
+  {
+    "source": "youtube",
+    "source_id": "tv5BWKq4BaQ",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / Behind The Scenes of Exercise, Diva, #Conbini, for you -Digest-",
+    "title_ja": "BE:FIRST / Behind The Scenes of Exercise, Diva, #Conbini, for you -Digest-",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/tv5BWKq4BaQ/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=tv5BWKq4BaQ",
+    "published_at": "2026-10-25T10:00:35"
+  },
+  {
+    "source": "youtube",
     "source_id": "NEaiI_FtemQ",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
