@@ -1,5 +1,18 @@
 [
   {
+    "source": "official_news",
+    "source_id": "7154",
+    "source_category": "MUSIC",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST『BE:4U』リリース記念シリアルコード 特典内容決定",
+    "title_ja": "BE:FIRST『BE:4U』リリース記念シリアルコード 特典内容決定",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [],
+    "url": "https://befirst.tokyo/music/1028_be4u/",
+    "published_at": "2026-10-28T03:03:47"
+  },
+  {
     "source": "youtube",
     "source_id": "mj4BYzUv8qE",
     "source_category": "VIDEO",
