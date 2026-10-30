@@ -1,6 +1,19 @@
 [
   {
     "source": "official_news",
+    "source_id": "7156",
+    "source_category": "NEWS",
+    "confidence": "OFFICIAL",
+    "title_original": "「BE:4U」リリース記念キャンペーン開催 決定",
+    "title_ja": "「BE:4U」リリース記念キャンペーン開催 決定",
+    "summary_ja": "",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/10/54DDE6BC-0510-4DCC-96D7-87E719E2F5D8.webp",
+    "members": [],
+    "url": "https://befirst.tokyo/news/be4u-campaign/",
+    "published_at": "2026-10-29T10:15:56"
+  },
+  {
+    "source": "official_news",
     "source_id": "7154",
     "source_category": "MUSIC",
     "confidence": "OFFICIAL",
