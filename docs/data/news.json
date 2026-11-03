@@ -1,6 +1,45 @@
 [
   {
     "source": "official_news",
+    "source_id": "7187",
+    "source_category": "GOODS",
+    "confidence": "OFFICIAL",
+    "title_original": "『BE:4U』Official Merch. 販売のお知らせ",
+    "title_ja": "『BE:4U』Official Merch. 販売のお知らせ",
+    "summary_ja": "",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/11/BE4Uリリース記念グッズ_告知画像_261030_YOKO_ステッカーSample.webp",
+    "members": [],
+    "url": "https://befirst.tokyo/goods/be4u-official-merch/",
+    "published_at": "2026-11-02T03:59:27"
+  },
+  {
+    "source": "official_news",
+    "source_id": "7175",
+    "source_category": "MAGAZINE",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/05(木)発売「音楽と人 12月号」BE:FIRST 表紙 & 巻頭特集 登場",
+    "title_ja": "2026/11/05(木)発売「音楽と人 12月号」BE:FIRST 表紙 & 巻頭特集 登場",
+    "summary_ja": "",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/11/OT12HHA1F_H1_BEFIRST.webp",
+    "members": [],
+    "url": "https://befirst.tokyo/media/magazine/261105-ongakutohito/",
+    "published_at": "2026-11-02T03:30:10"
+  },
+  {
+    "source": "official_news",
+    "source_id": "7184",
+    "source_category": "MAGAZINE",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/04(水)発売「anan 2518号 -Special Edition-」BE:FIRST 表紙",
+    "title_ja": "2026/11/04(水)発売「anan 2518号 -Special Edition-」BE:FIRST 表紙",
+    "summary_ja": "",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/11/IMG_2124.webp",
+    "members": [],
+    "url": "https://befirst.tokyo/media/magazine/261104-anan/",
+    "published_at": "2026-10-31T15:00:06"
+  },
+  {
+    "source": "official_news",
     "source_id": "7156",
     "source_category": "NEWS",
     "confidence": "OFFICIAL",
