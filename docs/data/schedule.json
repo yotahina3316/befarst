@@ -282,5 +282,27 @@
     "members": [
       "LEO"
     ]
+  },
+  {
+    "source": "anniversary",
+    "source_id": "debut-2027",
+    "source_category": "ANNIVERSARY",
+    "schedule_category": "ANNIVERSARY",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST デビュー記念日",
+    "title_ja": "BE:FIRST デビュー記念日",
+    "summary_ja": "11月3日です。",
+    "image_url": null,
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://befirst.tokyo/",
+    "published_at": "2026-11-04T01:57:58.810029",
+    "event_date": "2027-11-03"
   }
 ]
