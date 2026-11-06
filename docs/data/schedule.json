@@ -85,36 +85,6 @@
     "event_date": "2026-09-08"
   },
   {
-    "source": "official_news",
-    "source_id": "7020",
-    "source_category": "MUSIC",
-    "confidence": "OFFICIAL",
-    "title_original": "2026/11/03(火)発売 BE:FIRST 4th Album 『BE:4U』ご購入特典 決定",
-    "title_ja": "2026年11月3日(火)発売 BE:FIRST 4thアルバム『BE:4U』購入特典決定",
-    "summary_ja": "BE:FIRSTの4thアルバム『BE:4U』が2026年11月3日に発売されることが決定しました。購入者への先着特典として、全6種からランダムで1種の印刷メッセージ入りアザージャケットがプレゼントされます。特典は全店舗・ECサイト共通ですが、数に限りがあり無くなり次第終了となります。",
-    "url": "https://befirst.tokyo/music/0902-be4u/",
-    "published_at": "2026-09-02T07:59:16",
-    "event_date": "2026-11-03",
-    "schedule_category": "RELEASE",
-    "image_url": null,
-    "members": []
-  },
-  {
-    "source": "official_news",
-    "source_id": "6966",
-    "source_category": "MUSIC",
-    "confidence": "OFFICIAL",
-    "title_original": "2026/11/03(火) BE:FIRST 4th Album『BE:4U』リリース 決定",
-    "title_ja": "BE:FIRST 4thアルバム『BE:4U』2026年11月3日(火)リリース決定",
-    "summary_ja": "BE:FIRSTの4thアルバム『BE:4U』が2026年11月3日に発売決定。CDにはユニット曲を含む全13曲を収録し、LIVE盤にはMTV Unplugged BE:FIRSTのライブ映像・音源、MV盤には新曲や既存曲のミュージックビデオが収録される。形態はLIVE盤・MV盤それぞれDVD/Blu-ray仕様の計4種類が用意される。",
-    "url": "https://befirst.tokyo/music/befrist_be4u/",
-    "published_at": "2026-08-16T12:00:04",
-    "event_date": "2026-11-03",
-    "schedule_category": "RELEASE",
-    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/08/260804_BF_B4U_ArtistPhoto_trim_Large-scaled.webp",
-    "members": []
-  },
-  {
     "source": "anniversary",
     "source_id": "debut-2026",
     "source_category": "ANNIVERSARY",
