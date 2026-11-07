@@ -1,6 +1,38 @@
 [
   {
     "source": "official_news",
+    "source_id": "7203",
+    "source_category": "NEWS",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/06 BE:FIRSTを応援してくださる皆様へ",
+    "title_ja": "2026/11/06 BE:FIRSTを応援してくださる皆様へ",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://befirst.tokyo/news/261106-news/",
+    "published_at": "2026-11-06T12:59:42"
+  },
+  {
+    "source": "official_news",
+    "source_id": "7201",
+    "source_category": "RADIO",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/10 FM802「ROCK KIDS 802 OCHIKEN Goes ON!!」SHUNTO・MANATO 生出演",
+    "title_ja": "2026/11/10 FM802「ROCK KIDS 802 OCHIKEN Goes ON!!」SHUNTO・MANATO 生出演",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [
+      "MANATO",
+      "SHUNTO"
+    ],
+    "url": "https://befirst.tokyo/media/radio/261110-rk802/",
+    "published_at": "2026-11-06T02:45:53"
+  },
+  {
+    "source": "official_news",
     "source_id": "7187",
     "source_category": "GOODS",
     "confidence": "OFFICIAL",
