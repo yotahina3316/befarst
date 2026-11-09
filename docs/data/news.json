@@ -1,6 +1,26 @@
 [
   {
     "source": "official_news",
+    "source_id": "7208",
+    "source_category": "RADIO",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/011/09(月)- 『BE:4U』全国47都道府県 ラジオコメント出演情報",
+    "title_ja": "2026/011/09(月)- 『BE:4U』全国47都道府県 ラジオコメント出演情報",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://befirst.tokyo/media/radio/261108-be4u/",
+    "published_at": "2026-11-08T02:59:18"
+  },
+  {
+    "source": "official_news",
     "source_id": "7203",
     "source_category": "NEWS",
     "confidence": "OFFICIAL",
