@@ -1,5 +1,51 @@
 [
   {
+    "source": "youtube",
+    "source_id": "VkX3oC6g3h4",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / NOW U KNOW -from TBS系「CDTVライブ！ライブ！」-",
+    "title_ja": "BE:FIRST / NOW U KNOW -from TBS系「CDTVライブ！ライブ！」-",
+    "summary_ja": "",
+    "image_url": "https://i3.ytimg.com/vi/VkX3oC6g3h4/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=VkX3oC6g3h4",
+    "published_at": "2026-11-10T10:00:21"
+  },
+  {
+    "source": "youtube",
+    "source_id": "4bUvm6LYRkg",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 'NOW U KNOW' #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "BE:FIRST 'NOW U KNOW' #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/4bUvm6LYRkg/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/4bUvm6LYRkg",
+    "published_at": "2026-11-08T12:02:29"
+  },
+  {
+    "source": "youtube",
+    "source_id": "73PTMvuCSYs",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "NOU U KNOW? #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "NOU U KNOW? #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i4.ytimg.com/vi/73PTMvuCSYs/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/73PTMvuCSYs",
+    "published_at": "2026-11-08T11:56:51"
+  },
+  {
     "source": "official_news",
     "source_id": "7208",
     "source_category": "RADIO",
@@ -36,6 +82,19 @@
     "published_at": "2026-11-06T12:59:42"
   },
   {
+    "source": "youtube",
+    "source_id": "FZPAd4q63ps",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST WORLD SHOWCASE 2026 ”WATCH ME” in ASIA ［Vlog #29］",
+    "title_ja": "BE:FIRST WORLD SHOWCASE 2026 ”WATCH ME” in ASIA ［Vlog #29］",
+    "summary_ja": "",
+    "image_url": "https://i3.ytimg.com/vi/FZPAd4q63ps/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/watch?v=FZPAd4q63ps",
+    "published_at": "2026-11-06T11:00:35"
+  },
+  {
     "source": "official_news",
     "source_id": "7201",
     "source_category": "RADIO",
@@ -50,6 +109,99 @@
     ],
     "url": "https://befirst.tokyo/media/radio/261110-rk802/",
     "published_at": "2026-11-06T02:45:53"
+  },
+  {
+    "source": "youtube",
+    "source_id": "3iVN0eSueco",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / NOW U KNOW -Behind The Scenes-",
+    "title_ja": "BE:FIRST / NOW U KNOW -Behind The Scenes-",
+    "summary_ja": "",
+    "image_url": "https://i4.ytimg.com/vi/3iVN0eSueco/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=3iVN0eSueco",
+    "published_at": "2026-11-05T11:00:08"
+  },
+  {
+    "source": "youtube",
+    "source_id": "uFedXGeJf78",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / NOW U KNOW -Dance Practice-",
+    "title_ja": "BE:FIRST / NOW U KNOW -Dance Practice-",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/uFedXGeJf78/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=uFedXGeJf78",
+    "published_at": "2026-11-04T11:00:08"
+  },
+  {
+    "source": "youtube",
+    "source_id": "YMEgEOYkgTs",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "Now you know BE:FIRST! #BEFIRST_5thAnniv #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "Now you know BE:FIRST! #BEFIRST_5thAnniv #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/YMEgEOYkgTs/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/YMEgEOYkgTs",
+    "published_at": "2026-11-03T15:46:33"
+  },
+  {
+    "source": "youtube",
+    "source_id": "5Z20kDcg_QY",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 5th Anniversary Party & New Album “BE:4U” Release Celebration Livestreams",
+    "title_ja": "BE:FIRST 5th Anniversary Party & New Album “BE:4U” Release Celebration Livestreams",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/5Z20kDcg_QY/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=5Z20kDcg_QY",
+    "published_at": "2026-11-03T12:35:28"
+  },
+  {
+    "source": "youtube",
+    "source_id": "XfFkphWoPvM",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / NOW U KNOW -Dance Performance-",
+    "title_ja": "BE:FIRST / NOW U KNOW -Dance Performance-",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/XfFkphWoPvM/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=XfFkphWoPvM",
+    "published_at": "2026-11-03T12:30:10"
   },
   {
     "source": "official_news",
@@ -78,6 +230,94 @@
     "published_at": "2026-11-02T03:30:10"
   },
   {
+    "source": "youtube",
+    "source_id": "C9OExbmWikM",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / BE:4U -Album Digest-",
+    "title_ja": "BE:FIRST / BE:4U -Album Digest-",
+    "summary_ja": "",
+    "image_url": "https://i4.ytimg.com/vi/C9OExbmWikM/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=C9OExbmWikM",
+    "published_at": "2026-11-02T03:00:27"
+  },
+  {
+    "source": "youtube",
+    "source_id": "PgX2RafEtZs",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 'NOW U KNOW' -Music Video- #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "BE:FIRST 'NOW U KNOW' -Music Video- #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/PgX2RafEtZs/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/PgX2RafEtZs",
+    "published_at": "2026-11-02T01:30:43"
+  },
+  {
+    "source": "youtube",
+    "source_id": "DBAmFLYbTWk",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / NOW U KNOW -Official Audio-",
+    "title_ja": "BE:FIRST / NOW U KNOW -Official Audio-",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/DBAmFLYbTWk/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=DBAmFLYbTWk",
+    "published_at": "2026-11-01T15:07:55"
+  },
+  {
+    "source": "youtube",
+    "source_id": "I83-uq6iwcM",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST / NOW U KNOW -Music Video-",
+    "title_ja": "BE:FIRST / NOW U KNOW -Music Video-",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/I83-uq6iwcM/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=I83-uq6iwcM",
+    "published_at": "2026-11-01T15:07:49"
+  },
+  {
+    "source": "youtube",
+    "source_id": "vU4Pgg-sjkA",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "2026.11.03 4th Album『BE:4U』#BE_4U #BF_NOWUKNOW #BEFIRST #LEO",
+    "title_ja": "2026.11.03 4th Album『BE:4U』#BE_4U #BF_NOWUKNOW #BEFIRST #LEO",
+    "summary_ja": "",
+    "image_url": "https://i3.ytimg.com/vi/vU4Pgg-sjkA/hqdefault.jpg",
+    "members": [
+      "LEO"
+    ],
+    "url": "https://www.youtube.com/shorts/vU4Pgg-sjkA",
+    "published_at": "2026-11-01T10:26:17"
+  },
+  {
     "source": "official_news",
     "source_id": "7184",
     "source_category": "MAGAZINE",
@@ -89,6 +329,26 @@
     "members": [],
     "url": "https://befirst.tokyo/media/magazine/261104-anan/",
     "published_at": "2026-10-31T15:00:06"
+  },
+  {
+    "source": "youtube",
+    "source_id": "lzWQ88cw3VE",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST \"NOW U KNOW\" STATION",
+    "title_ja": "BE:FIRST \"NOW U KNOW\" STATION",
+    "summary_ja": "",
+    "image_url": "https://i1.ytimg.com/vi/lzWQ88cw3VE/hqdefault.jpg",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/watch?v=lzWQ88cw3VE",
+    "published_at": "2026-10-30T23:46:58"
   },
   {
     "source": "official_news",
