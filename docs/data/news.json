@@ -1,5 +1,31 @@
 [
   {
+    "source": "official_news",
+    "source_id": "7217",
+    "source_category": "TV",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/20(金) テレビ朝日「ミュージックステーション」BE:FIRST 出演",
+    "title_ja": "2026/11/20(金) テレビ朝日「ミュージックステーション」BE:FIRST 出演",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [],
+    "url": "https://befirst.tokyo/media/tv/261120-msute/",
+    "published_at": "2026-11-13T09:00:43"
+  },
+  {
+    "source": "official_news",
+    "source_id": "7215",
+    "source_category": "TV",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/12/31(木) NHK「第77回NHK紅白歌合戦」BE:FIRST 出場決定",
+    "title_ja": "2026/12/31(木) NHK「第77回NHK紅白歌合戦」BE:FIRST 出場決定",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [],
+    "url": "https://befirst.tokyo/media/tv/261231-kouhaku/",
+    "published_at": "2026-11-13T04:12:30"
+  },
+  {
     "source": "youtube",
     "source_id": "VkX3oC6g3h4",
     "source_category": "VIDEO",
