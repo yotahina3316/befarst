@@ -1,5 +1,48 @@
 [
   {
+    "source": "youtube",
+    "source_id": "jv8PhuN2voo",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 'NOW U KNOW' #LEO w/ #豆原一成 #JO1 #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "BE:FIRST 'NOW U KNOW' #LEO w/ #豆原一成 #JO1 #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i3.ytimg.com/vi/jv8PhuN2voo/hqdefault.jpg",
+    "members": [
+      "LEO"
+    ],
+    "url": "https://www.youtube.com/shorts/jv8PhuN2voo",
+    "published_at": "2026-11-15T10:07:12"
+  },
+  {
+    "source": "youtube",
+    "source_id": "eixYdzoQ9Do",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 'NOW U KNOW' #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "BE:FIRST 'NOW U KNOW' #BE_4U #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i2.ytimg.com/vi/eixYdzoQ9Do/hqdefault.jpg",
+    "members": [],
+    "url": "https://www.youtube.com/shorts/eixYdzoQ9Do",
+    "published_at": "2026-11-14T11:00:05"
+  },
+  {
+    "source": "youtube",
+    "source_id": "jowtVXRIKbE",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "ステーキ定食 弱火でじっくり DC: RYUHEI(BE:FIRST) #HunterXHunter #dance #BEFIRST",
+    "title_ja": "ステーキ定食 弱火でじっくり DC: RYUHEI(BE:FIRST) #HunterXHunter #dance #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i3.ytimg.com/vi/jowtVXRIKbE/hqdefault.jpg",
+    "members": [
+      "RYUHEI"
+    ],
+    "url": "https://www.youtube.com/shorts/jowtVXRIKbE",
+    "published_at": "2026-11-13T12:11:28"
+  },
+  {
     "source": "official_news",
     "source_id": "7217",
     "source_category": "TV",
