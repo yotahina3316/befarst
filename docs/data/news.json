@@ -1,6 +1,21 @@
 [
   {
     "source": "youtube",
+    "source_id": "VUJDBi5PyBA",
+    "source_category": "VIDEO",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST 'NOW U KNOW' #SOTA w/ #K #andTEAM #BF_NOWUKNOW #BEFIRST",
+    "title_ja": "BE:FIRST 'NOW U KNOW' #SOTA w/ #K #andTEAM #BF_NOWUKNOW #BEFIRST",
+    "summary_ja": "",
+    "image_url": "https://i3.ytimg.com/vi/VUJDBi5PyBA/hqdefault.jpg",
+    "members": [
+      "SOTA"
+    ],
+    "url": "https://www.youtube.com/shorts/VUJDBi5PyBA",
+    "published_at": "2026-11-17T10:08:03"
+  },
+  {
+    "source": "youtube",
     "source_id": "jv8PhuN2voo",
     "source_category": "VIDEO",
     "confidence": "OFFICIAL",
