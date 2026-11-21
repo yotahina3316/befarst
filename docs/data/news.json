@@ -1,5 +1,18 @@
 [
   {
+    "source": "official_news",
+    "source_id": "7223",
+    "source_category": "NEWS",
+    "confidence": "OFFICIAL",
+    "title_original": "BE:FIRST ‘Missing’ ｢第68回 日本レコード大賞｣《優秀作品賞》を受賞",
+    "title_ja": "BE:FIRST ‘Missing’ ｢第68回 日本レコード大賞｣《優秀作品賞》を受賞",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [],
+    "url": "https://befirst.tokyo/news/2026-recordaward/",
+    "published_at": "2026-11-20T15:09:39"
+  },
+  {
     "source": "youtube",
     "source_id": "VUJDBi5PyBA",
     "source_category": "VIDEO",
