@@ -1,6 +1,41 @@
 [
   {
     "source": "official_news",
+    "source_id": "7236",
+    "source_category": "MUSIC",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/30(月)リリース「Dance on Christmas」ダウンロードキャンペーン",
+    "title_ja": "2026/11/30(月)リリース「Dance on Christmas」ダウンロードキャンペーン",
+    "summary_ja": "",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/11/【BEFIRST】DoC_CP_X.webp",
+    "members": [
+      "SOTA",
+      "MANATO",
+      "JUNON",
+      "SHUNTO",
+      "LEO",
+      "RYUHEI"
+    ],
+    "url": "https://befirst.tokyo/music/danceonchristmas-downloadcp/",
+    "published_at": "2026-11-26T09:59:51"
+  },
+  {
+    "source": "official_news",
+    "source_id": "7229",
+    "source_category": "MUSIC",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/11/30(月)リリース「Dance on Christmas」ストリーミングキャンペーン",
+    "title_ja": "2026/11/30(月)リリース「Dance on Christmas」ストリーミングキャンペーン",
+    "summary_ja": "",
+    "image_url": "https://befirst.tokyo/sitedata/wp-content/uploads/2026/11/【BEFIRST】DoC_CP_X.webp",
+    "members": [
+      "JUNON"
+    ],
+    "url": "https://befirst.tokyo/music/danceonchristmas-streamingcp/",
+    "published_at": "2026-11-26T09:59:07"
+  },
+  {
+    "source": "official_news",
     "source_id": "7223",
     "source_category": "NEWS",
     "confidence": "OFFICIAL",
