@@ -1,6 +1,19 @@
 [
   {
     "source": "official_news",
+    "source_id": "7240",
+    "source_category": "TV",
+    "confidence": "OFFICIAL",
+    "title_original": "2026/12/05(土) NHK総合「Venue101 Presents BE:FIRST まだ見ぬ世界へ」放送決定",
+    "title_ja": "2026/12/05(土) NHK総合「Venue101 Presents BE:FIRST まだ見ぬ世界へ」放送決定",
+    "summary_ja": "",
+    "image_url": null,
+    "members": [],
+    "url": "https://befirst.tokyo/media/tv/261205-venue101/",
+    "published_at": "2026-11-27T08:54:27"
+  },
+  {
+    "source": "official_news",
     "source_id": "7236",
     "source_category": "MUSIC",
     "confidence": "OFFICIAL",
